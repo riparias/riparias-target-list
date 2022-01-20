@@ -28,7 +28,7 @@ Install required libraries (only if the libraries have not been installed before
 
 ```{r}
 installed <- rownames(installed.packages())
-required <- c("tidyverse", "tidylog", "magrittr", "here", "janitor", "digest", "rgbif")
+required <- c("tidyverse", "tidylog", "magrittr", "tidyr", "here", "janitor", "digest", "rgbif")
 if (!all(required %in% installed)) {
   install.packages(required[!required %in% installed])
 }
@@ -61,6 +61,47 @@ input_data %>% head(n = 5)
 ```
 
 # Process source data
+
+## Tidy data
+
+We reshape the vernacular names columns by creating two columns: `vernacular_name` and `language`:
+
+```{r}
+input_data %<>%
+  pivot_longer(cols= starts_with("vernacular"),
+               names_to = c("language"), 
+               names_prefix = "vernacular_name_",
+               values_to = "vernacular_name")
+```
+
+Preview:
+
+```{r}
+input_data %>% head(10)
+```
+
+Some taxa have multiple vernacular names divided by  `"  / "`:
+
+```{r}
+input_data %>%
+  filter(stringr::str_detect(.data$vernacular_name,
+                             pattern = " / "))
+```
+
+We split them in separate rows:
+
+```{r}
+input_data %<>%
+  separate_rows(vernacular_name,
+                sep = " / ")
+```
+
+The input data are now tidy:
+
+```{r}
+input_data
+```
+
 
 ## Scientific names
 
