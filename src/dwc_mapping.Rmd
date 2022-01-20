@@ -264,10 +264,7 @@ Map values by recoding to the [GBIF rank vocabulary](http://rs.gbif.org/vocabula
 
 ```{r}
 taxon %<>% mutate(dwc_taxonRank = recode(rankmarker,
-  "agg."      = "speciesAggregate",
-  "infrasp."  = "infraspecificname",
   "sp."       = "species",
-  "var."      = "variety",
   .default    = "",
   .missing    = ""
 ))
@@ -284,7 +281,7 @@ taxon %>%
 ### nomenclaturalCode
 
 ```{r}
-taxon %<>% mutate(dwc_nomenclaturalCode = "my_nomenclaturalCode") # e.g. "ICZN"
+taxon %<>% mutate(dwc_nomenclaturalCode = "ICZN")
 ```
 
 ## Post-processing
@@ -313,172 +310,6 @@ Save to CSV:
 write_csv(taxon, here("data", "processed", "taxon.csv"), na = "")
 ```
 
-# Distribution extension
+# Map vernacular names extension
 
-## Pre-processing
-
-Create a dataframe with all data:
-
-```{r}
-distribution <- input_data
-```
-
-## Term mapping
-
-Map the data to [Species Distribution](http://rs.gbif.org/extension/gbif/1.0/distribution.xml).
-
-### taxonID
-
-```{r}
-distribution %<>% mutate(dwc_taxonID = taxon_id)
-```
-
-### locality
-
-Inspect values:
-
-```{r}
-distribution %>%
-  group_by(country_code, locality) %>%
-  count()
-```
-
-Map values to `locality` if provided, otherwise use the country name:
-
-```{r}
-distribution %<>% mutate(dwc_locality = case_when(
-  !is.na(locality) ~ locality,
-  country_code == "BE" ~ "Belgium",
-  country_code == "GB" ~ "United Kingdom",
-  country_code == "MK" ~ "Macedonia",
-  country_code == "NL" ~ "The Netherlands",
-  TRUE ~ "" # In other cases leave empty
-))
-```
-
-Inspect mapped values: 
-
-```{r}
-distribution %>%
-  group_by(country_code, locality, dwc_locality) %>%
-  count()
-```
-
-### countryCode
-
-Inspect values:
-
-```{r}
-distribution %>%
-  group_by(country_code) %>%
-  count()
-```
-
-Map values:
-
-```{r}
-distribution %<>% mutate(dwc_countryCode = country_code) 
-```
-
-### occurrenceStatus
-
-Inspect values:
-
-```{r}
-distribution %>%
-  group_by(occurrence_status) %>%
-  count()
-```
-
-Map values:
-
-```{r}
-distribution %<>% mutate(dwc_occurrenceStatus = occurrence_status) 
-```
-
-### threatStatus
-
-Inspect values:
-
-```{r}
-distribution %>%
-  group_by(threat_status) %>%
-  count()
-```
-
-Map values by recoding to the [IUCN threat status vocabulary](http://rs.gbif.org/vocabulary/iucn/threat_status.xml):
-
-```{r}
-distribution %<>% mutate(dwc_threatStatus = recode(threat_status,
-  "endangered" = "EN",
-  "vulnerable" = "VU"
-))
-```
-
-Inspect mapped values: 
-
-```{r}
-distribution %>%
-  group_by(threat_status, dwc_threatStatus) %>%
-  count()
-```
-
-### source
-
-Inspect values:
-
-```{r}
-distribution %>%
-  group_by(source) %>%
-  count() %>%
-  head() # Remove to show all values
-```
-
-Map values:
-
-```{r}
-distribution %<>% mutate(dwc_source = source) 
-```
-
-### occurrenceRemarks
-
-Inspect values:
-
-```{r}
-distribution %>%
-  group_by(remarks) %>%
-  count() %>%
-  head() # Remove to show all values
-```
-
-Map values:
-
-```{r}
-distribution %<>% mutate(dwc_occurrenceRemarks = remarks) 
-```
-
-## Post-processing
-
-Only keep the Darwin Core columns:
-
-```{r}
-distribution %<>% select(starts_with("dwc_"))
-```
-
-Drop the `dwc_` prefix:
-
-```{r}
-colnames(distribution) <- str_remove(colnames(distribution), "dwc_")
-```
-
-Preview data:
-
-```{r}
-distribution %>% head()
-```
-
-Save to CSV:
-
-```{r}
-write_csv(distribution, here("data", "processed", "distribution.csv"), na = "")
-```
+To be done
