@@ -1,0 +1,30 @@
+scientific_name	gbif_key	vernacular_name_en	vernacular_name_nl	vernacular_name_fr	is_project_species	is_alert_species	is_plant	is_animal	is_crayfish	is_aquatic_plant	is_riparian_plant
+Hydrocotyle ranunculoides	7978544	Floating pennywort	Grote waternavel	Hydrocotyle fausse renoncule	T	F	T	F	F	T	F
+Ludwigia grandiflora	5421039	Water-primrose	Waterteunisbloem	Jussie à grandes fleurs	T	F	T	F	F	T	F
+Ludwigia peploides	5420991	Floating primrose-willow	Kleine waterteunisbloem	Jussie rampante	T	F	T	F	F	T	F
+Myriophyllum aquaticum	5361785	Parrot's feather	Parelvederkruid	Myriophylle du Brésil	T	F	T	F	F	T	F
+Myriophyllum heterophyllum	5361762	Broadleaf watermilfoil	Ongelijkbladig vederkruid	Myriophylle hétérophylle	T	F	T	F	F	T	F
+Lagarosiphon major	2865565	Curly waterweed	Verspreidbladige waterpest	Elodée à feuilles alternes	T	F	T	F	F	T	F
+Cabomba caroliniana	2882443	Fanwort	Waterwaaier	Cabomba de Caroline	T	F	T	F	F	T	F
+Heracleum mantegazzianum	3034825	Giant hogweed	Reuzenbereklauw	Berce du Caucase	T	F	T	F	F	F	T
+Heracleum persicum	8000520	Persian hogweed	Perzische berenklauw	Berce de Perse	T	F	T	F	F	F	T
+Heracleum sosnowskyi	3642949	Sosnowsky's hogweed	Sosnowsky's berenklauw	Berce de Sosnowski	T	F	T	F	F	F	T
+Impatiens glandulifera	2891770	Himalayan balsam	Reuzenbalsemien	Balsamine de l’Himalaya	T	F	T	F	F	F	T
+Lysichiton americanus	2869311	American skunk cabbage	Moerasaronskelk	Faux arum	T	F	T	F	F	F	T
+Procambarus clarkii	2227300	Red swamp crayfish	Rode rivierkreeft	Ecrevisse de Louisiane	T	F	F	T	T	F	F
+Faxonius virilis	8971201	Northern Crayfish	Geknobbelde Amerikaanse rivierkreeft	Écrevisse à pinces bleues	T	F	F	T	T	F	F
+Procambarus virginalis	9442269	Marbled crayfish	Marmerkreeft	Ecrevisse marbrée	T	F	F	T	T	F	F
+Egeria densa	5329260	Greater Pondweed	Egeria	Élodée dense	F	T	T	F	F	T	F
+Aponogeton distachyos	5328593	Cape-pondweed / Water Hawthorn	Kaapse waterlelie	Aponogéton odorant	F	T	T	F	F	T	F
+Pontederia cordata	2766030	Pickerelweed	Moerashyacint	Pontédérie à feuilles cordées	F	T	T	F	F	T	F
+Crassula helmsii	5362054	New Zealand Pigmyweed	Watercrassula	Crassule des étangs	F	T	T	F	F	T	T
+Petasites japonicus	3088310	Giant Butterbur	Japans hoefblad	Pétasitès japonais	F	T	T	F	F	F	T
+Zizania latifolia	2703231	Manchurian wildrice			F	T	T	F	F	F	T
+Cotula coronopifolia	3112110	Buttonweed / Common brassbutton	Goudknopje	Cotule pied-de-corbeau	F	T	T	F	F	F	T
+Houttuynia cordata	5384931	Chinese lizard tail	Moerasanemoon	Hottonie, Houttuynie	F	T	T	F	F	F	T
+Saururus cernuus	5384932	Lizard's tail	Leidse plant	Lézardelle penchée Riparian plant	F	T	T	F	F	F	T
+Procambarus acutus	2227289	White River Crayfish	Gestreepte Amerikaanse rivierkreeft		F	T	F	T	T	F	F
+Faxonius rusticus	8979506				F	T	F	T	T	F	F
+Faxonius immunis	8930656				F	T	F	T	T	F	F
+Faxonius juvenilis	8721209				F	T	F	T	T	F	F
+Cherax destructor	4417558	Australian Yabbi	Australische Yabbi	Yabbi d'Australie	F	T	F	T	T		F
