@@ -8,7 +8,7 @@ This repository contains the functionality to standardize the data of the [LIFE 
 
 ## Workflow
 
-[source data] (maintained as a [Google Spreadsheet](https://docs.google.com/spreadsheets/d/12cwX7xne7GTQn1nFDp2tuzJOTWcaOidikcsizaYTAn0/edit?usp=sharing)) → Darwin Core [mapping script](src/dwc_mapping.Rmd) → generated [Darwin Core files](data/processed)
+[source data](https://github.com/riparias/riparias-target-list/blob/master/data/raw) (derived by a [PDF document](https://drive.google.com/file/d/1B9Rrrr7DU2Iaf3A9vc5bNQBhw1g-slMN/view?usp=sharing) which summarizes the information contained in a descriptive [Google Spreadsheet](https://docs.google.com/spreadsheets/d/12cwX7xne7GTQn1nFDp2tuzJOTWcaOidikcsizaYTAn0/edit?usp=sharing) ) → Darwin Core [mapping script](src/dwc_mapping.Rmd) → generated [Darwin Core files](data/processed)
 
 ## Published dataset
 
