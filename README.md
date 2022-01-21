@@ -26,7 +26,7 @@ The repository structure is based on [Cookiecutter Data Science](http://drivenda
 ```
 ├── README.md              : Description of this repository
 ├── LICENSE                : Repository license
-├── checklist-recipe.Rproj : RStudio project file
+├── riparias-target-list.Rproj : RStudio project file
 ├── .gitignore             : Files and directories to be ignored by git
 │
 ├── data
