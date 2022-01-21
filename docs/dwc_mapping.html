@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Damiano Oldoni" />
+
+<meta name="date" content="2022-01-21" />
+
+<title>Darwin Core mapping</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="static/css/riparias.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">riparias-target-list</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="dwc_mapping.html">Darwin Core mapping</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/riparias/riparias-target-list">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Darwin Core mapping</h1>
+<h3 class="subtitle">For: LIFE RIPARIAS target species list</h3>
+<h4 class="author">Damiano Oldoni</h4>
+<h4 class="date">2022-01-21</h4>
+
+</div>
+
+
+<div id="setup" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Setup</h1>
+<p>Install required libraries (only if the libraries have not been installed before):</p>
+<pre class="r"><code>installed &lt;- rownames(installed.packages())
+required &lt;- c(&quot;tidyverse&quot;, &quot;tidylog&quot;, &quot;magrittr&quot;, &quot;tidyr&quot;, &quot;here&quot;, &quot;janitor&quot;, &quot;digest&quot;, &quot;rgbif&quot;)
+if (!all(required %in% installed)) {
+  install.packages(required[!required %in% installed])
+}</code></pre>
+<p>Load libraries:</p>
+<pre class="r"><code>library(tidyverse)      # To do data science
+library(tidylog)        # To provide feedback on dplyr functions
+library(magrittr)       # To use %&lt;&gt;% pipes
+library(here)           # To find files
+library(janitor)        # To clean input data
+library(digest)         # To generate hashes
+library(rgbif)          # To use GBIF services</code></pre>
+</div>
+<div id="read-source-data" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Read source data</h1>
+<p>Create a data frame <code>input_data</code> from the source data:</p>
+<pre class="r"><code>input_data &lt;- read_tsv(file = here(&quot;data&quot;, &quot;raw&quot;, &quot;input_taxa.tsv&quot;)) </code></pre>
+<pre><code>## Rows: 29 Columns: 11</code></pre>
+<pre><code>## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;\t&quot;
+## chr (5): scientific_name, vernacular_name_en, vernacular_name_nl, vernacular...
+## dbl (1): gbif_key
+## lgl (5): is_project_species, is_alert_species, is_crayfish, is_aquatic_plant...</code></pre>
+<pre><code>## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Preview data:</p>
+<pre class="r"><code>input_data %&gt;% head(n = 5)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["scientific_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gbif_key"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["vernacular_name_en"],"name":[3],"type":["chr"],"align":["left"]},{"label":["vernacular_name_nl"],"name":[4],"type":["chr"],"align":["left"]},{"label":["vernacular_name_fr"],"name":[5],"type":["chr"],"align":["left"]},{"label":["kingdom"],"name":[6],"type":["chr"],"align":["left"]},{"label":["is_project_species"],"name":[7],"type":["lgl"],"align":["right"]},{"label":["is_alert_species"],"name":[8],"type":["lgl"],"align":["right"]},{"label":["is_crayfish"],"name":[9],"type":["lgl"],"align":["right"]},{"label":["is_aquatic_plant"],"name":[10],"type":["lgl"],"align":["right"]},{"label":["is_riparian_plant"],"name":[11],"type":["lgl"],"align":["right"]}],"data":[{"1":"Hydrocotyle ranunculoides","2":"7978544","3":"Floating pennywort","4":"Grote waternavel","5":"Hydrocotyle fausse renoncule","6":"Plantae","7":"TRUE","8":"FALSE","9":"FALSE","10":"TRUE","11":"FALSE"},{"1":"Ludwigia grandiflora","2":"5421039","3":"Water-primrose","4":"Waterteunisbloem","5":"Jussie à grandes fleurs","6":"Plantae","7":"TRUE","8":"FALSE","9":"FALSE","10":"TRUE","11":"FALSE"},{"1":"Ludwigia peploides","2":"5420991","3":"Floating primrose-willow","4":"Kleine waterteunisbloem","5":"Jussie rampante","6":"Plantae","7":"TRUE","8":"FALSE","9":"FALSE","10":"TRUE","11":"FALSE"},{"1":"Myriophyllum aquaticum","2":"5361785","3":"Parrot's feather","4":"Parelvederkruid","5":"Myriophylle du Brésil","6":"Plantae","7":"TRUE","8":"FALSE","9":"FALSE","10":"TRUE","11":"FALSE"},{"1":"Myriophyllum heterophyllum","2":"5361762","3":"Broadleaf watermilfoil","4":"Ongelijkbladig vederkruid","5":"Myriophylle hétérophylle","6":"Plantae","7":"TRUE","8":"FALSE","9":"FALSE","10":"TRUE","11":"FALSE"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="process-source-data" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Process source data</h1>
+<div id="tidy-data" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Tidy data</h2>
+<p>We reshape the vernacular names columns by creating two columns: <code>vernacular_name</code> and <code>language</code>:</p>
+<pre class="r"><code>input_data %&lt;&gt;%
+  pivot_longer(cols= starts_with(&quot;vernacular&quot;),
+               names_to = c(&quot;language&quot;), 
+               names_prefix = &quot;vernacular_name_&quot;,
+               values_to = &quot;vernacular_name&quot;)</code></pre>
+<pre><code>## pivot_longer: reorganized (vernacular_name_en, vernacular_name_nl, vernacular_name_fr) into (language, vernacular_name) [was 29x11, now 87x10]</code></pre>
+<p>Preview:</p>
+<pre class="r"><code>input_data %&gt;% head(10)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["scientific_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gbif_key"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["kingdom"],"name":[3],"type":["chr"],"align":["left"]},{"label":["is_project_species"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["is_alert_species"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["is_crayfish"],"name":[6],"type":["lgl"],"align":["right"]},{"label":["is_aquatic_plant"],"name":[7],"type":["lgl"],"align":["right"]},{"label":["is_riparian_plant"],"name":[8],"type":["lgl"],"align":["right"]},{"label":["language"],"name":[9],"type":["chr"],"align":["left"]},{"label":["vernacular_name"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"Hydrocotyle ranunculoides","2":"7978544","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Floating pennywort"},{"1":"Hydrocotyle ranunculoides","2":"7978544","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Grote waternavel"},{"1":"Hydrocotyle ranunculoides","2":"7978544","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Hydrocotyle fausse renoncule"},{"1":"Ludwigia grandiflora","2":"5421039","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Water-primrose"},{"1":"Ludwigia grandiflora","2":"5421039","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Waterteunisbloem"},{"1":"Ludwigia grandiflora","2":"5421039","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Jussie à grandes fleurs"},{"1":"Ludwigia peploides","2":"5420991","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Floating primrose-willow"},{"1":"Ludwigia peploides","2":"5420991","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Kleine waterteunisbloem"},{"1":"Ludwigia peploides","2":"5420991","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Jussie rampante"},{"1":"Myriophyllum aquaticum","2":"5361785","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Parrot's feather"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Some taxa have multiple vernacular names divided by <code>"  / "</code>:</p>
+<pre class="r"><code>input_data %&gt;%
+  filter(stringr::str_detect(.data$vernacular_name,
+                             pattern = &quot; / &quot;))</code></pre>
+<pre><code>## filter: removed 84 rows (97%), 3 rows remaining</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["scientific_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gbif_key"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["kingdom"],"name":[3],"type":["chr"],"align":["left"]},{"label":["is_project_species"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["is_alert_species"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["is_crayfish"],"name":[6],"type":["lgl"],"align":["right"]},{"label":["is_aquatic_plant"],"name":[7],"type":["lgl"],"align":["right"]},{"label":["is_riparian_plant"],"name":[8],"type":["lgl"],"align":["right"]},{"label":["language"],"name":[9],"type":["chr"],"align":["left"]},{"label":["vernacular_name"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"Aponogeton distachyos","2":"5328593","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Cape-pondweed / Water Hawthorn"},{"1":"Cotula coronopifolia","2":"3112110","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Buttonweed / Common brassbutton"},{"1":"Houttuynia cordata","2":"5384931","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Hottonie / Houttuynie"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>We split them in separate rows:</p>
+<pre class="r"><code>input_data %&lt;&gt;%
+  separate_rows(vernacular_name,
+                sep = &quot; / &quot;)</code></pre>
+<p>The input data are now tidy:</p>
+<pre class="r"><code>input_data</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["scientific_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gbif_key"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["kingdom"],"name":[3],"type":["chr"],"align":["left"]},{"label":["is_project_species"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["is_alert_species"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["is_crayfish"],"name":[6],"type":["lgl"],"align":["right"]},{"label":["is_aquatic_plant"],"name":[7],"type":["lgl"],"align":["right"]},{"label":["is_riparian_plant"],"name":[8],"type":["lgl"],"align":["right"]},{"label":["language"],"name":[9],"type":["chr"],"align":["left"]},{"label":["vernacular_name"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"Hydrocotyle ranunculoides","2":"7978544","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Floating pennywort"},{"1":"Hydrocotyle ranunculoides","2":"7978544","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Grote waternavel"},{"1":"Hydrocotyle ranunculoides","2":"7978544","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Hydrocotyle fausse renoncule"},{"1":"Ludwigia grandiflora","2":"5421039","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Water-primrose"},{"1":"Ludwigia grandiflora","2":"5421039","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Waterteunisbloem"},{"1":"Ludwigia grandiflora","2":"5421039","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Jussie à grandes fleurs"},{"1":"Ludwigia peploides","2":"5420991","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Floating primrose-willow"},{"1":"Ludwigia peploides","2":"5420991","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Kleine waterteunisbloem"},{"1":"Ludwigia peploides","2":"5420991","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Jussie rampante"},{"1":"Myriophyllum aquaticum","2":"5361785","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Parrot's feather"},{"1":"Myriophyllum aquaticum","2":"5361785","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Parelvederkruid"},{"1":"Myriophyllum aquaticum","2":"5361785","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Myriophylle du Brésil"},{"1":"Myriophyllum heterophyllum","2":"5361762","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Broadleaf watermilfoil"},{"1":"Myriophyllum heterophyllum","2":"5361762","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Ongelijkbladig vederkruid"},{"1":"Myriophyllum heterophyllum","2":"5361762","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Myriophylle hétérophylle"},{"1":"Lagarosiphon major","2":"2865565","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Curly waterweed"},{"1":"Lagarosiphon major","2":"2865565","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Verspreidbladige waterpest"},{"1":"Lagarosiphon major","2":"2865565","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Elodée à feuilles alternes"},{"1":"Cabomba caroliniana","2":"2882443","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Fanwort"},{"1":"Cabomba caroliniana","2":"2882443","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Waterwaaier"},{"1":"Cabomba caroliniana","2":"2882443","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Cabomba de Caroline"},{"1":"Heracleum mantegazzianum","2":"3034825","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Giant hogweed"},{"1":"Heracleum mantegazzianum","2":"3034825","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"nl","10":"Reuzenbereklauw"},{"1":"Heracleum mantegazzianum","2":"3034825","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Berce du Caucase"},{"1":"Heracleum persicum","2":"8000520","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Persian hogweed"},{"1":"Heracleum persicum","2":"8000520","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"nl","10":"Perzische berenklauw"},{"1":"Heracleum persicum","2":"8000520","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Berce de Perse"},{"1":"Heracleum sosnowskyi","2":"3642949","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Sosnowsky's hogweed"},{"1":"Heracleum sosnowskyi","2":"3642949","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"nl","10":"Sosnowsky's berenklauw"},{"1":"Heracleum sosnowskyi","2":"3642949","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Berce de Sosnowski"},{"1":"Impatiens glandulifera","2":"2891770","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Himalayan balsam"},{"1":"Impatiens glandulifera","2":"2891770","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"nl","10":"Reuzenbalsemien"},{"1":"Impatiens glandulifera","2":"2891770","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Balsamine de l’Himalaya"},{"1":"Lysichiton americanus","2":"2869311","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"American skunk cabbage"},{"1":"Lysichiton americanus","2":"2869311","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"nl","10":"Moerasaronskelk"},{"1":"Lysichiton americanus","2":"2869311","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Faux arum"},{"1":"Procambarus clarkii","2":"2227300","3":"Animalia","4":"TRUE","5":"FALSE","6":"TRUE","7":"FALSE","8":"FALSE","9":"en","10":"Red swamp crayfish"},{"1":"Procambarus clarkii","2":"2227300","3":"Animalia","4":"TRUE","5":"FALSE","6":"TRUE","7":"FALSE","8":"FALSE","9":"nl","10":"Rode rivierkreeft"},{"1":"Procambarus clarkii","2":"2227300","3":"Animalia","4":"TRUE","5":"FALSE","6":"TRUE","7":"FALSE","8":"FALSE","9":"fr","10":"Ecrevisse de Louisiane"},{"1":"Faxonius virilis","2":"8971201","3":"Animalia","4":"TRUE","5":"FALSE","6":"TRUE","7":"FALSE","8":"FALSE","9":"en","10":"Northern Crayfish"},{"1":"Faxonius virilis","2":"8971201","3":"Animalia","4":"TRUE","5":"FALSE","6":"TRUE","7":"FALSE","8":"FALSE","9":"nl","10":"Geknobbelde Amerikaanse rivierkreeft"},{"1":"Faxonius virilis","2":"8971201","3":"Animalia","4":"TRUE","5":"FALSE","6":"TRUE","7":"FALSE","8":"FALSE","9":"fr","10":"Écrevisse à pinces bleues"},{"1":"Procambarus virginalis","2":"9442269","3":"Animalia","4":"TRUE","5":"FALSE","6":"TRUE","7":"FALSE","8":"FALSE","9":"en","10":"Marbled crayfish"},{"1":"Procambarus virginalis","2":"9442269","3":"Animalia","4":"TRUE","5":"FALSE","6":"TRUE","7":"FALSE","8":"FALSE","9":"nl","10":"Marmerkreeft"},{"1":"Procambarus virginalis","2":"9442269","3":"Animalia","4":"TRUE","5":"FALSE","6":"TRUE","7":"FALSE","8":"FALSE","9":"fr","10":"Ecrevisse marbrée"},{"1":"Egeria densa","2":"5329260","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Greater Pondweed"},{"1":"Egeria densa","2":"5329260","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Egeria"},{"1":"Egeria densa","2":"5329260","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Élodée dense"},{"1":"Aponogeton distachyos","2":"5328593","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Cape-pondweed"},{"1":"Aponogeton distachyos","2":"5328593","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Water Hawthorn"},{"1":"Aponogeton distachyos","2":"5328593","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Kaapse waterlelie"},{"1":"Aponogeton distachyos","2":"5328593","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Aponogéton odorant"},{"1":"Pontederia cordata","2":"2766030","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Pickerelweed"},{"1":"Pontederia cordata","2":"2766030","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Moerashyacint"},{"1":"Pontederia cordata","2":"2766030","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Pontédérie à feuilles cordées"},{"1":"Crassula helmsii","2":"5362054","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"TRUE","9":"en","10":"New Zealand Pigmyweed"},{"1":"Crassula helmsii","2":"5362054","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"TRUE","9":"nl","10":"Watercrassula"},{"1":"Crassula helmsii","2":"5362054","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"TRUE","8":"TRUE","9":"fr","10":"Crassule des étangs"},{"1":"Petasites japonicus","2":"3088310","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Giant Butterbur"},{"1":"Petasites japonicus","2":"3088310","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"nl","10":"Japans hoefblad"},{"1":"Petasites japonicus","2":"3088310","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Pétasitès japonais"},{"1":"Zizania latifolia","2":"2703231","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Manchurian wildrice"},{"1":"Zizania latifolia","2":"2703231","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"nl","10":"NA"},{"1":"Zizania latifolia","2":"2703231","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"NA"},{"1":"Cotula coronopifolia","2":"3112110","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Buttonweed"},{"1":"Cotula coronopifolia","2":"3112110","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Common brassbutton"},{"1":"Cotula coronopifolia","2":"3112110","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"nl","10":"Goudknopje"},{"1":"Cotula coronopifolia","2":"3112110","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Cotule pied-de-corbeau"},{"1":"Houttuynia cordata","2":"5384931","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Chinese lizard tail"},{"1":"Houttuynia cordata","2":"5384931","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"nl","10":"Moerasanemoon"},{"1":"Houttuynia cordata","2":"5384931","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Hottonie"},{"1":"Houttuynia cordata","2":"5384931","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Houttuynie"},{"1":"Saururus cernuus","2":"5384932","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"en","10":"Lizard's tail"},{"1":"Saururus cernuus","2":"5384932","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"nl","10":"Leidse plant"},{"1":"Saururus cernuus","2":"5384932","3":"Plantae","4":"FALSE","5":"TRUE","6":"FALSE","7":"FALSE","8":"TRUE","9":"fr","10":"Lézardelle penchée Riparian plant"},{"1":"Procambarus acutus","2":"2227289","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"en","10":"White River Crayfish"},{"1":"Procambarus acutus","2":"2227289","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"nl","10":"Gestreepte Amerikaanse rivierkreeft"},{"1":"Procambarus acutus","2":"2227289","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"fr","10":"NA"},{"1":"Faxonius rusticus","2":"8979506","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"en","10":"NA"},{"1":"Faxonius rusticus","2":"8979506","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"nl","10":"NA"},{"1":"Faxonius rusticus","2":"8979506","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"fr","10":"NA"},{"1":"Faxonius immunis","2":"8930656","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"en","10":"NA"},{"1":"Faxonius immunis","2":"8930656","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"nl","10":"NA"},{"1":"Faxonius immunis","2":"8930656","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"fr","10":"NA"},{"1":"Faxonius juvenilis","2":"8721209","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"en","10":"NA"},{"1":"Faxonius juvenilis","2":"8721209","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"nl","10":"NA"},{"1":"Faxonius juvenilis","2":"8721209","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"FALSE","8":"FALSE","9":"fr","10":"NA"},{"1":"Cherax destructor","2":"4417558","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"NA","8":"FALSE","9":"en","10":"Australian Yabbi"},{"1":"Cherax destructor","2":"4417558","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"NA","8":"FALSE","9":"nl","10":"Australische Yabbi"},{"1":"Cherax destructor","2":"4417558","3":"Animalia","4":"FALSE","5":"TRUE","6":"TRUE","7":"NA","8":"FALSE","9":"fr","10":"Yabbi d'Australie"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="scientific-names" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Scientific names</h2>
+<p>Use the <a href="https://www.gbif.org/tools/name-parser">GBIF nameparser</a> to retrieve nomenclatural information for the scientific names in the checklist:</p>
+<pre class="r"><code>parsed_names &lt;- input_data %&gt;%
+  distinct(scientific_name) %&gt;%
+  pull() %&gt;% # Create vector from dataframe
+  parsenames() # An rgbif function</code></pre>
+<pre><code>## distinct: removed 61 rows (68%), 29 rows remaining</code></pre>
+<p>Show scientific names with nomenclatural issues, i.e. not of <code>type = SCIENTIFIC</code> or that could not be fully parsed. Note: these are not necessarily incorrect.</p>
+<pre class="r"><code>parsed_names %&gt;%
+  select(scientificname, type, parsed, parsedpartially, rankmarker) %&gt;%
+  filter(!(type == &quot;SCIENTIFIC&quot; &amp; parsed == &quot;TRUE&quot; &amp; parsedpartially == &quot;FALSE&quot;))</code></pre>
+<pre><code>## select: dropped 5 variables (genusorabove, specificepithet, canonicalname, canonicalnamewithmarker, canonicalnamecomplete)</code></pre>
+<pre><code>## filter: removed all rows (100%)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["scientificname"],"name":[1],"type":["chr"],"align":["left"]},{"label":["type"],"name":[2],"type":["chr"],"align":["left"]},{"label":["parsed"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["parsedpartially"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["rankmarker"],"name":[5],"type":["chr"],"align":["left"]}],"data":[],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="taxon-ranks" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Taxon ranks</h2>
+<p>The nameparser function also provides information about the rank of the taxon (in <code>rankmarker</code>). Here we join this information with our checklist. Cleaning these ranks will be done in the Taxon Core mapping:</p>
+<pre class="r"><code>input_data %&lt;&gt;% left_join(
+  parsed_names %&gt;%
+  select(scientificname, rankmarker),
+  by = c(&quot;scientific_name&quot; = &quot;scientificname&quot;))</code></pre>
+<pre><code>## select: dropped 8 variables (type, genusorabove, specificepithet, parsed, parsedpartially, …)</code></pre>
+<pre><code>## left_join: added one column (rankmarker)</code></pre>
+<pre><code>##            &gt; rows only in x    0</code></pre>
+<pre><code>##            &gt; rows only in y  ( 0)</code></pre>
+<pre><code>##            &gt; matched rows     90</code></pre>
+<pre><code>##            &gt;                 ====</code></pre>
+<pre><code>##            &gt; rows total       90</code></pre>
+</div>
+<div id="taxon-ids" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Taxon IDs</h2>
+<p>To link taxa with information in the extension(s), each taxon needs a unique and relatively stable <code>taxonID</code>. Here we create one in the form of <code>dataset_shortname:taxon:hash</code>, where <code>hash</code> is unique code based on scientific name and kingdom (that will remain the same as long as scientific name and kingdom remain the same):</p>
+<pre class="r"><code>vdigest &lt;- Vectorize(digest) # Vectorize digest function to work with vectors
+input_data %&lt;&gt;% mutate(taxon_id = paste(
+  &quot;riparias-target-list&quot;,
+  &quot;taxon&quot;,
+  vdigest(paste(scientific_name, kingdom), algo = &quot;md5&quot;),
+  sep = &quot;:&quot;
+))</code></pre>
+<pre><code>## mutate: new variable &#39;taxon_id&#39; (character) with 29 unique values and 0% NA</code></pre>
+</div>
+<div id="preview-data" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Preview data</h2>
+<p>Show the number of taxa and distributions per kingdom and rank:</p>
+<pre class="r"><code>input_data %&gt;%
+  group_by(kingdom, rankmarker) %&gt;%
+  summarize(
+    `# taxa` = n_distinct(taxon_id),
+    `# distributions` = n()
+  ) %&gt;%
+  adorn_totals(&quot;row&quot;)</code></pre>
+<pre><code>## group_by: 2 grouping variables (kingdom, rankmarker)</code></pre>
+<pre><code>## summarize: now 2 rows and 4 columns, one group variable remaining (kingdom)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["kingdom"],"name":[1],"type":["chr"],"align":["left"]},{"label":["rankmarker"],"name":[2],"type":["chr"],"align":["left"]},{"label":["# taxa"],"name":[3],"type":["int"],"align":["right"]},{"label":["# distributions"],"name":[4],"type":["int"],"align":["right"]}],"data":[{"1":"Animalia","2":"sp.","3":"8","4":"24"},{"1":"Plantae","2":"sp.","3":"21","4":"66"},{"1":"Total","2":"-","3":"29","4":"90"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Preview data:</p>
+<pre class="r"><code>input_data %&gt;% head()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["scientific_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gbif_key"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["kingdom"],"name":[3],"type":["chr"],"align":["left"]},{"label":["is_project_species"],"name":[4],"type":["lgl"],"align":["right"]},{"label":["is_alert_species"],"name":[5],"type":["lgl"],"align":["right"]},{"label":["is_crayfish"],"name":[6],"type":["lgl"],"align":["right"]},{"label":["is_aquatic_plant"],"name":[7],"type":["lgl"],"align":["right"]},{"label":["is_riparian_plant"],"name":[8],"type":["lgl"],"align":["right"]},{"label":["language"],"name":[9],"type":["chr"],"align":["left"]},{"label":["vernacular_name"],"name":[10],"type":["chr"],"align":["left"]},{"label":["rankmarker"],"name":[11],"type":["chr"],"align":["left"]},{"label":["taxon_id"],"name":[12],"type":["chr"],"align":["left"]}],"data":[{"1":"Hydrocotyle ranunculoides","2":"7978544","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Floating pennywort","11":"sp.","12":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b"},{"1":"Hydrocotyle ranunculoides","2":"7978544","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Grote waternavel","11":"sp.","12":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b"},{"1":"Hydrocotyle ranunculoides","2":"7978544","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Hydrocotyle fausse renoncule","11":"sp.","12":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b"},{"1":"Ludwigia grandiflora","2":"5421039","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"en","10":"Water-primrose","11":"sp.","12":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6"},{"1":"Ludwigia grandiflora","2":"5421039","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"nl","10":"Waterteunisbloem","11":"sp.","12":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6"},{"1":"Ludwigia grandiflora","2":"5421039","3":"Plantae","4":"TRUE","5":"FALSE","6":"FALSE","7":"TRUE","8":"FALSE","9":"fr","10":"Jussie à grandes fleurs","11":"sp.","12":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div id="taxon-core" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Taxon core</h1>
+<div id="pre-processing" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Pre-processing</h2>
+<p>Create a dataframe with unique taxa only (ignoring eventual multiple distribution rows):</p>
+<pre class="r"><code>taxon &lt;- input_data %&gt;% distinct(taxon_id, .keep_all = TRUE)</code></pre>
+<pre><code>## distinct: removed 61 rows (68%), 29 rows remaining</code></pre>
+</div>
+<div id="term-mapping" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Term mapping</h2>
+<p>Map the data to <a href="http://rs.gbif.org/core/dwc_taxon_2015-04-24.xml">Darwin Core Taxon</a>.</p>
+<p>Start with record-level terms which contain metadata about the dataset (which is generally the same for all records).</p>
+<div id="language" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> language</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_language = &quot;en&quot;)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_language&#39; (character) with one unique value and 0% NA</code></pre>
+</div>
+<div id="license" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> license</h3>
+<pre class="r"><code>taxon %&lt;&gt;% 
+  mutate(dwc_license = &quot;http://creativecommons.org/publicdomain/zero/1.0/&quot;)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_license&#39; (character) with one unique value and 0% NA</code></pre>
+</div>
+<div id="rightsholder" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> rightsHolder</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_rightsHolder = &quot;INBO&quot;) # e.g. &quot;INBO&quot;</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_rightsHolder&#39; (character) with one unique value and 0% NA</code></pre>
+</div>
+<div id="datasetid" class="section level3" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> datasetID</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_datasetID = &quot;my_dataset_doi&quot;) # e.g. &quot;https://doi.org/10.15468/xvuzfh&quot;</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_datasetID&#39; (character) with one unique value and 0% NA</code></pre>
+</div>
+<div id="institutioncode" class="section level3" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> institutionCode</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_institutionCode = &quot;INBO&quot;)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_institutionCode&#39; (character) with one unique value and 0% NA</code></pre>
+</div>
+<div id="datasetname" class="section level3" number="4.2.6">
+<h3><span class="header-section-number">4.2.6</span> datasetName</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_datasetName = &quot;Checklist of LIFE RIPARIAS target species&quot;)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_datasetName&#39; (character) with one unique value and 0% NA</code></pre>
+<p>The following terms contain information about the taxon:</p>
+</div>
+<div id="taxonid" class="section level3" number="4.2.7">
+<h3><span class="header-section-number">4.2.7</span> taxonID</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_taxonID = taxon_id)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_taxonID&#39; (character) with 29 unique values and 0% NA</code></pre>
+</div>
+<div id="scientificname" class="section level3" number="4.2.8">
+<h3><span class="header-section-number">4.2.8</span> scientificName</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_scientificName = scientific_name)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_scientificName&#39; (character) with 29 unique values and 0% NA</code></pre>
+</div>
+<div id="kingdom" class="section level3" number="4.2.9">
+<h3><span class="header-section-number">4.2.9</span> kingdom</h3>
+<p>Inspect values:</p>
+<pre class="r"><code>taxon %&gt;%
+  group_by(kingdom) %&gt;%
+  count()</code></pre>
+<pre><code>## group_by: one grouping variable (kingdom)</code></pre>
+<pre><code>## count: now 2 rows and 2 columns, one group variable remaining (kingdom)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["kingdom"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Animalia","2":"8"},{"1":"Plantae","2":"21"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Map values:</p>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_kingdom = kingdom)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_kingdom&#39; (character) with 2 unique values and 0% NA</code></pre>
+</div>
+<div id="taxonrank" class="section level3" number="4.2.10">
+<h3><span class="header-section-number">4.2.10</span> taxonRank</h3>
+<p>Inspect values:</p>
+<pre class="r"><code>taxon %&gt;%
+  group_by(rankmarker) %&gt;%
+  count()</code></pre>
+<pre><code>## group_by: one grouping variable (rankmarker)</code></pre>
+<pre><code>## count: now one row and 2 columns, one group variable remaining (rankmarker)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["rankmarker"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"sp.","2":"29"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Map values by recoding to the <a href="http://rs.gbif.org/vocabulary/gbif/rank_2015-04-24.xml">GBIF rank vocabulary</a>:</p>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_taxonRank = recode(rankmarker,
+  &quot;sp.&quot;       = &quot;species&quot;,
+  .default    = &quot;&quot;,
+  .missing    = &quot;&quot;
+))</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_taxonRank&#39; (character) with one unique value and 0% NA</code></pre>
+<p>Inspect mapped values:</p>
+<pre class="r"><code>taxon %&gt;%
+  group_by(rankmarker, dwc_taxonRank) %&gt;%
+  count()</code></pre>
+<pre><code>## group_by: 2 grouping variables (rankmarker, dwc_taxonRank)</code></pre>
+<pre><code>## count: now one row and 3 columns, 2 group variables remaining (rankmarker, dwc_taxonRank)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["rankmarker"],"name":[1],"type":["chr"],"align":["left"]},{"label":["dwc_taxonRank"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]}],"data":[{"1":"sp.","2":"species","3":"29"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="nomenclaturalcode" class="section level3" number="4.2.11">
+<h3><span class="header-section-number">4.2.11</span> nomenclaturalCode</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_nomenclaturalCode = &quot;ICZN&quot;)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_nomenclaturalCode&#39; (character) with one unique value and 0% NA</code></pre>
+</div>
+</div>
+<div id="post-processing" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Post-processing</h2>
+<p>Only keep the Darwin Core columns:</p>
+<pre class="r"><code>taxon %&lt;&gt;% select(starts_with(&quot;dwc_&quot;))</code></pre>
+<pre><code>## select: dropped 12 variables (scientific_name, gbif_key, kingdom, is_project_species, is_alert_species, …)</code></pre>
+<p>Drop the <code>dwc_</code> prefix:</p>
+<pre class="r"><code>colnames(taxon) &lt;- str_remove(colnames(taxon), &quot;dwc_&quot;)</code></pre>
+<p>Preview data:</p>
+<pre class="r"><code>taxon %&gt;% head()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["language"],"name":[1],"type":["chr"],"align":["left"]},{"label":["license"],"name":[2],"type":["chr"],"align":["left"]},{"label":["rightsHolder"],"name":[3],"type":["chr"],"align":["left"]},{"label":["datasetID"],"name":[4],"type":["chr"],"align":["left"]},{"label":["institutionCode"],"name":[5],"type":["chr"],"align":["left"]},{"label":["datasetName"],"name":[6],"type":["chr"],"align":["left"]},{"label":["taxonID"],"name":[7],"type":["chr"],"align":["left"]},{"label":["scientificName"],"name":[8],"type":["chr"],"align":["left"]},{"label":["kingdom"],"name":[9],"type":["chr"],"align":["left"]},{"label":["taxonRank"],"name":[10],"type":["chr"],"align":["left"]},{"label":["nomenclaturalCode"],"name":[11],"type":["chr"],"align":["left"]}],"data":[{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b","8":"Hydrocotyle ranunculoides","9":"Plantae","10":"species","11":"ICZN"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6","8":"Ludwigia grandiflora","9":"Plantae","10":"species","11":"ICZN"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:2854a8568656c31c950b2ee198a4aaf2","8":"Ludwigia peploides","9":"Plantae","10":"species","11":"ICZN"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:98fb8615055cc6d6e58dd5bba656f594","8":"Myriophyllum aquaticum","9":"Plantae","10":"species","11":"ICZN"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:701d040f80f720a60634ede2d563c8cc","8":"Myriophyllum heterophyllum","9":"Plantae","10":"species","11":"ICZN"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:0c23faf898d4a38a958864dd9722f92d","8":"Lagarosiphon major","9":"Plantae","10":"species","11":"ICZN"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Save to CSV:</p>
+<pre class="r"><code>write_csv(taxon, here(&quot;data&quot;, &quot;processed&quot;, &quot;taxon.csv&quot;), na = &quot;&quot;)</code></pre>
+</div>
+</div>
+<div id="map-vernacular-names-extension" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Map vernacular names extension</h1>
+<div id="pre-processing-1" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Pre-processing</h2>
+<p>Create a <code>vernacular</code> data.frame from <code>input_data</code> containing only vernacular name information and corresponding taxon IDs:</p>
+<pre class="r"><code>vernacular &lt;- input_data %&gt;%
+  select(.data$taxon_id,
+         .data$language,
+         .data$vernacular_name
+)</code></pre>
+<pre><code>## select: dropped 9 variables (scientific_name, gbif_key, kingdom, is_project_species, is_alert_species, …)</code></pre>
+<pre class="r"><code>vernacular</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["taxon_id"],"name":[1],"type":["chr"],"align":["left"]},{"label":["language"],"name":[2],"type":["chr"],"align":["left"]},{"label":["vernacular_name"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b","2":"en","3":"Floating pennywort"},{"1":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b","2":"nl","3":"Grote waternavel"},{"1":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b","2":"fr","3":"Hydrocotyle fausse renoncule"},{"1":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6","2":"en","3":"Water-primrose"},{"1":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6","2":"nl","3":"Waterteunisbloem"},{"1":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6","2":"fr","3":"Jussie à grandes fleurs"},{"1":"riparias-target-list:taxon:2854a8568656c31c950b2ee198a4aaf2","2":"en","3":"Floating primrose-willow"},{"1":"riparias-target-list:taxon:2854a8568656c31c950b2ee198a4aaf2","2":"nl","3":"Kleine waterteunisbloem"},{"1":"riparias-target-list:taxon:2854a8568656c31c950b2ee198a4aaf2","2":"fr","3":"Jussie rampante"},{"1":"riparias-target-list:taxon:98fb8615055cc6d6e58dd5bba656f594","2":"en","3":"Parrot's feather"},{"1":"riparias-target-list:taxon:98fb8615055cc6d6e58dd5bba656f594","2":"nl","3":"Parelvederkruid"},{"1":"riparias-target-list:taxon:98fb8615055cc6d6e58dd5bba656f594","2":"fr","3":"Myriophylle du Brésil"},{"1":"riparias-target-list:taxon:701d040f80f720a60634ede2d563c8cc","2":"en","3":"Broadleaf watermilfoil"},{"1":"riparias-target-list:taxon:701d040f80f720a60634ede2d563c8cc","2":"nl","3":"Ongelijkbladig vederkruid"},{"1":"riparias-target-list:taxon:701d040f80f720a60634ede2d563c8cc","2":"fr","3":"Myriophylle hétérophylle"},{"1":"riparias-target-list:taxon:0c23faf898d4a38a958864dd9722f92d","2":"en","3":"Curly waterweed"},{"1":"riparias-target-list:taxon:0c23faf898d4a38a958864dd9722f92d","2":"nl","3":"Verspreidbladige waterpest"},{"1":"riparias-target-list:taxon:0c23faf898d4a38a958864dd9722f92d","2":"fr","3":"Elodée à feuilles alternes"},{"1":"riparias-target-list:taxon:4612ba981762e7729ee775ea0f9fb57a","2":"en","3":"Fanwort"},{"1":"riparias-target-list:taxon:4612ba981762e7729ee775ea0f9fb57a","2":"nl","3":"Waterwaaier"},{"1":"riparias-target-list:taxon:4612ba981762e7729ee775ea0f9fb57a","2":"fr","3":"Cabomba de Caroline"},{"1":"riparias-target-list:taxon:6fb43445cb41bab620b5365d614d46b2","2":"en","3":"Giant hogweed"},{"1":"riparias-target-list:taxon:6fb43445cb41bab620b5365d614d46b2","2":"nl","3":"Reuzenbereklauw"},{"1":"riparias-target-list:taxon:6fb43445cb41bab620b5365d614d46b2","2":"fr","3":"Berce du Caucase"},{"1":"riparias-target-list:taxon:aaa4bf314e99f24d73599f0608e6602a","2":"en","3":"Persian hogweed"},{"1":"riparias-target-list:taxon:aaa4bf314e99f24d73599f0608e6602a","2":"nl","3":"Perzische berenklauw"},{"1":"riparias-target-list:taxon:aaa4bf314e99f24d73599f0608e6602a","2":"fr","3":"Berce de Perse"},{"1":"riparias-target-list:taxon:00bf4bcd0509e25730f73ad66bc82c2e","2":"en","3":"Sosnowsky's hogweed"},{"1":"riparias-target-list:taxon:00bf4bcd0509e25730f73ad66bc82c2e","2":"nl","3":"Sosnowsky's berenklauw"},{"1":"riparias-target-list:taxon:00bf4bcd0509e25730f73ad66bc82c2e","2":"fr","3":"Berce de Sosnowski"},{"1":"riparias-target-list:taxon:bbf57991e39ed609b78e5d565d54e791","2":"en","3":"Himalayan balsam"},{"1":"riparias-target-list:taxon:bbf57991e39ed609b78e5d565d54e791","2":"nl","3":"Reuzenbalsemien"},{"1":"riparias-target-list:taxon:bbf57991e39ed609b78e5d565d54e791","2":"fr","3":"Balsamine de l’Himalaya"},{"1":"riparias-target-list:taxon:eebfdcf8e4d628954189e69240723ab7","2":"en","3":"American skunk cabbage"},{"1":"riparias-target-list:taxon:eebfdcf8e4d628954189e69240723ab7","2":"nl","3":"Moerasaronskelk"},{"1":"riparias-target-list:taxon:eebfdcf8e4d628954189e69240723ab7","2":"fr","3":"Faux arum"},{"1":"riparias-target-list:taxon:ad6ef633d9bc18930d8894c8e33e9f3a","2":"en","3":"Red swamp crayfish"},{"1":"riparias-target-list:taxon:ad6ef633d9bc18930d8894c8e33e9f3a","2":"nl","3":"Rode rivierkreeft"},{"1":"riparias-target-list:taxon:ad6ef633d9bc18930d8894c8e33e9f3a","2":"fr","3":"Ecrevisse de Louisiane"},{"1":"riparias-target-list:taxon:0ee766ce27cceadb968c628051a173e6","2":"en","3":"Northern Crayfish"},{"1":"riparias-target-list:taxon:0ee766ce27cceadb968c628051a173e6","2":"nl","3":"Geknobbelde Amerikaanse rivierkreeft"},{"1":"riparias-target-list:taxon:0ee766ce27cceadb968c628051a173e6","2":"fr","3":"Écrevisse à pinces bleues"},{"1":"riparias-target-list:taxon:de7320ca63664be077e4cc666cef44d1","2":"en","3":"Marbled crayfish"},{"1":"riparias-target-list:taxon:de7320ca63664be077e4cc666cef44d1","2":"nl","3":"Marmerkreeft"},{"1":"riparias-target-list:taxon:de7320ca63664be077e4cc666cef44d1","2":"fr","3":"Ecrevisse marbrée"},{"1":"riparias-target-list:taxon:9cb6039b5c56d1d4a61ff6a409bc7671","2":"en","3":"Greater Pondweed"},{"1":"riparias-target-list:taxon:9cb6039b5c56d1d4a61ff6a409bc7671","2":"nl","3":"Egeria"},{"1":"riparias-target-list:taxon:9cb6039b5c56d1d4a61ff6a409bc7671","2":"fr","3":"Élodée dense"},{"1":"riparias-target-list:taxon:daa459bc1f06497b4c7204e046b13c01","2":"en","3":"Cape-pondweed"},{"1":"riparias-target-list:taxon:daa459bc1f06497b4c7204e046b13c01","2":"en","3":"Water Hawthorn"},{"1":"riparias-target-list:taxon:daa459bc1f06497b4c7204e046b13c01","2":"nl","3":"Kaapse waterlelie"},{"1":"riparias-target-list:taxon:daa459bc1f06497b4c7204e046b13c01","2":"fr","3":"Aponogéton odorant"},{"1":"riparias-target-list:taxon:7b843a153385f2dd615bb0fbbd3275b0","2":"en","3":"Pickerelweed"},{"1":"riparias-target-list:taxon:7b843a153385f2dd615bb0fbbd3275b0","2":"nl","3":"Moerashyacint"},{"1":"riparias-target-list:taxon:7b843a153385f2dd615bb0fbbd3275b0","2":"fr","3":"Pontédérie à feuilles cordées"},{"1":"riparias-target-list:taxon:22d67081268100791b4d829409fa17fa","2":"en","3":"New Zealand Pigmyweed"},{"1":"riparias-target-list:taxon:22d67081268100791b4d829409fa17fa","2":"nl","3":"Watercrassula"},{"1":"riparias-target-list:taxon:22d67081268100791b4d829409fa17fa","2":"fr","3":"Crassule des étangs"},{"1":"riparias-target-list:taxon:72f67670de31c81564744eaa4411aa8d","2":"en","3":"Giant Butterbur"},{"1":"riparias-target-list:taxon:72f67670de31c81564744eaa4411aa8d","2":"nl","3":"Japans hoefblad"},{"1":"riparias-target-list:taxon:72f67670de31c81564744eaa4411aa8d","2":"fr","3":"Pétasitès japonais"},{"1":"riparias-target-list:taxon:cc409919c1cc8c8b7b9c548321d53402","2":"en","3":"Manchurian wildrice"},{"1":"riparias-target-list:taxon:cc409919c1cc8c8b7b9c548321d53402","2":"nl","3":"NA"},{"1":"riparias-target-list:taxon:cc409919c1cc8c8b7b9c548321d53402","2":"fr","3":"NA"},{"1":"riparias-target-list:taxon:a8998e647c1894ea7441fa2531c0774f","2":"en","3":"Buttonweed"},{"1":"riparias-target-list:taxon:a8998e647c1894ea7441fa2531c0774f","2":"en","3":"Common brassbutton"},{"1":"riparias-target-list:taxon:a8998e647c1894ea7441fa2531c0774f","2":"nl","3":"Goudknopje"},{"1":"riparias-target-list:taxon:a8998e647c1894ea7441fa2531c0774f","2":"fr","3":"Cotule pied-de-corbeau"},{"1":"riparias-target-list:taxon:eacc7e68568cb194281e03109e3f881d","2":"en","3":"Chinese lizard tail"},{"1":"riparias-target-list:taxon:eacc7e68568cb194281e03109e3f881d","2":"nl","3":"Moerasanemoon"},{"1":"riparias-target-list:taxon:eacc7e68568cb194281e03109e3f881d","2":"fr","3":"Hottonie"},{"1":"riparias-target-list:taxon:eacc7e68568cb194281e03109e3f881d","2":"fr","3":"Houttuynie"},{"1":"riparias-target-list:taxon:509dce8d0af1d61c30ebc7cbca9b7327","2":"en","3":"Lizard's tail"},{"1":"riparias-target-list:taxon:509dce8d0af1d61c30ebc7cbca9b7327","2":"nl","3":"Leidse plant"},{"1":"riparias-target-list:taxon:509dce8d0af1d61c30ebc7cbca9b7327","2":"fr","3":"Lézardelle penchée Riparian plant"},{"1":"riparias-target-list:taxon:8d33f6ebfbcdbf5a7ba38211853bc07c","2":"en","3":"White River Crayfish"},{"1":"riparias-target-list:taxon:8d33f6ebfbcdbf5a7ba38211853bc07c","2":"nl","3":"Gestreepte Amerikaanse rivierkreeft"},{"1":"riparias-target-list:taxon:8d33f6ebfbcdbf5a7ba38211853bc07c","2":"fr","3":"NA"},{"1":"riparias-target-list:taxon:45879ab97f046fe2fb75fa4d9ab54665","2":"en","3":"NA"},{"1":"riparias-target-list:taxon:45879ab97f046fe2fb75fa4d9ab54665","2":"nl","3":"NA"},{"1":"riparias-target-list:taxon:45879ab97f046fe2fb75fa4d9ab54665","2":"fr","3":"NA"},{"1":"riparias-target-list:taxon:b9379f3fa97e8033620d69c79372e63c","2":"en","3":"NA"},{"1":"riparias-target-list:taxon:b9379f3fa97e8033620d69c79372e63c","2":"nl","3":"NA"},{"1":"riparias-target-list:taxon:b9379f3fa97e8033620d69c79372e63c","2":"fr","3":"NA"},{"1":"riparias-target-list:taxon:effc3f0be85335b18eb1ccaeb314ab79","2":"en","3":"NA"},{"1":"riparias-target-list:taxon:effc3f0be85335b18eb1ccaeb314ab79","2":"nl","3":"NA"},{"1":"riparias-target-list:taxon:effc3f0be85335b18eb1ccaeb314ab79","2":"fr","3":"NA"},{"1":"riparias-target-list:taxon:50312d36e99ebf5b3bf236e396f2cd10","2":"en","3":"Australian Yabbi"},{"1":"riparias-target-list:taxon:50312d36e99ebf5b3bf236e396f2cd10","2":"nl","3":"Australische Yabbi"},{"1":"riparias-target-list:taxon:50312d36e99ebf5b3bf236e396f2cd10","2":"fr","3":"Yabbi d'Australie"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Remove rows with missing vernacular name:</p>
+<pre class="r"><code>vernacular %&lt;&gt;% filter(!is.na(vernacular_name))</code></pre>
+<pre><code>## filter: removed 12 rows (13%), 78 rows remaining</code></pre>
+</div>
+<div id="term-mapping-1" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Term mapping</h2>
+<div id="taxonid-1" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> TaxonID</h3>
+<pre class="r"><code>vernacular %&lt;&gt;% mutate(dwc_taxonID = taxon_id)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_taxonID&#39; (character) with 26 unique values and 0% NA</code></pre>
+</div>
+<div id="vernacularname" class="section level3" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> vernacularName</h3>
+<pre class="r"><code>vernacular %&lt;&gt;% mutate(dwc_vernacularName = vernacular_name)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_vernacularName&#39; (character) with 78 unique values and 0% NA</code></pre>
+</div>
+<div id="source" class="section level3" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> source</h3>
+<p>The <code>source</code> is based on expert knowledge: set to <code>NA</code>:</p>
+<pre class="r"><code>vernacular %&lt;&gt;% mutate(dwc_source = NA)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_source&#39; (logical) with one unique value and 100% NA</code></pre>
+</div>
+<div id="language-1" class="section level3" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> language</h3>
+<pre class="r"><code>vernacular %&lt;&gt;% mutate(dwc_language = language)</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_language&#39; (character) with 3 unique values and 0% NA</code></pre>
+</div>
+</div>
+<div id="post-processing-1" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Post-processing</h2>
+<p>Only keep the Darwin Core columns:</p>
+<pre class="r"><code>vernacular %&lt;&gt;% select(starts_with(&quot;dwc_&quot;))</code></pre>
+<pre><code>## select: dropped 3 variables (taxon_id, language, vernacular_name)</code></pre>
+<p>Drop the <code>dwc_</code> prefix:</p>
+<pre class="r"><code>colnames(vernacular) &lt;- str_remove(colnames(vernacular), &quot;dwc_&quot;)</code></pre>
+<p>Preview data:</p>
+<pre class="r"><code>vernacular %&gt;% head()</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["taxonID"],"name":[1],"type":["chr"],"align":["left"]},{"label":["vernacularName"],"name":[2],"type":["chr"],"align":["left"]},{"label":["source"],"name":[3],"type":["lgl"],"align":["right"]},{"label":["language"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b","2":"Floating pennywort","3":"NA","4":"en"},{"1":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b","2":"Grote waternavel","3":"NA","4":"nl"},{"1":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b","2":"Hydrocotyle fausse renoncule","3":"NA","4":"fr"},{"1":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6","2":"Water-primrose","3":"NA","4":"en"},{"1":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6","2":"Waterteunisbloem","3":"NA","4":"nl"},{"1":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6","2":"Jussie à grandes fleurs","3":"NA","4":"fr"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Save to CSV:</p>
+<pre class="r"><code>write_csv(vernacular, here(&quot;data&quot;, &quot;processed&quot;, &quot;vernacularname.csv&quot;), na = &quot;&quot;)</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
