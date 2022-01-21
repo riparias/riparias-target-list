@@ -140,7 +140,7 @@ To link taxa with information in the extension(s), each taxon needs a unique and
 ```{r}
 vdigest <- Vectorize(digest) # Vectorize digest function to work with vectors
 input_data %<>% mutate(taxon_id = paste(
-  "my_dataset_shortname", # e.g. "alien-fishes-checklist"
+  "riparias-target-list",
   "taxon",
   vdigest(paste(scientific_name, kingdom), algo = "md5"),
   sep = ":"
@@ -211,7 +211,7 @@ taxon %<>% mutate(dwc_datasetID = "my_dataset_doi") # e.g. "https://doi.org/10.1
 ### institutionCode
 
 ```{r}
-taxon %<>% mutate(dwc_institutionCode = "my_institution_code") # e.g. "INBO"
+taxon %<>% mutate(dwc_institutionCode = "INBO")
 ```
 
 ### datasetName
