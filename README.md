@@ -1,4 +1,4 @@
-# List of LIFE RIPARIAS target species
+# LIFE RIPARIAS target species list
 
 ## Rationale
 
