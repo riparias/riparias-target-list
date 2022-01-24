@@ -52,12 +52,6 @@ The repository structure is based on [Cookiecutter Data Science](http://drivenda
 5. Click `Run > Run All` to generate the processed data
 6. Alternatively, click `Build > Build website` to generate the processed data and build the website in `docs/` (advanced)
 
-## Contributors
-
-<!-- This section lists everyone who contributed to this repository. You can maintain a manual list here or reference the contributors on GitHub. -->
-
-[List of contributors](https://github.com/riparias/riparias-target-list/contributors)
-
 ## License
 
 <!-- The license is the open source license for the code and documentation in this repository, not the checklist data (that you can define in dwc_mapping.Rmd). As your repository is based on https://github.com/trias-project/checklist-recipe, we'd like it if you kept the open and permissive MIT license. You're welcome to add your name as a copyright holder (because your are for your own code contributions), which you can do in the LICENSE file. If you want to release your repository under a different license, please indicate somehow that it was based on https://github.com/trias-project/checklist-recipe. We know, licenses are complicated. See https://choosealicense.com/ for more information. -->
