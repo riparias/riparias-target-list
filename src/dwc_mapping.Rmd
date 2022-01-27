@@ -332,6 +332,8 @@ vernacular %<>% filter(!is.na(vernacular_name))
 
 ## Term mapping
 
+Map the data to [Vernacular Names](http://rs.gbif.org/extension/gbif/1.0/vernacularname.xml).
+
 ### TaxonID
 
 ```{r}
@@ -342,14 +344,6 @@ vernacular %<>% mutate(dwc_taxonID = taxon_id)
 
 ```{r}
 vernacular %<>% mutate(dwc_vernacularName = vernacular_name)
-```
-
-### source
-
-The `source` is based on expert knowledge: set to `NA`:
-
-```{r}
-vernacular %<>% mutate(dwc_source = NA)
 ```
 
 ### language
