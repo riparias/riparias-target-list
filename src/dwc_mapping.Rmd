@@ -281,12 +281,6 @@ taxon %>%
   count()
 ```
 
-### nomenclaturalCode
-
-```{r}
-taxon %<>% mutate(dwc_nomenclaturalCode = "ICZN")
-```
-
 ## Post-processing
 
 Only keep the Darwin Core columns:
