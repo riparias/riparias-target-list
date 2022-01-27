@@ -30,7 +30,6 @@ required <- c(
   "here",
   "janitor",
   "digest",
-  "rgbif"
   "stringr"
 )
 if (!all(required %in% installed)) {
@@ -47,7 +46,6 @@ library(magrittr)       # To use %<>% pipes
 library(here)           # To find files
 library(janitor)        # To clean input data
 library(digest)         # To generate hashes
-library(rgbif)          # To use GBIF services
 library(stringr)        # To work with strings
 ```
 
@@ -109,36 +107,6 @@ The input data are now tidy:
 input_data
 ```
 
-## Scientific names
-
-Use the [GBIF nameparser](https://www.gbif.org/tools/name-parser) to retrieve nomenclatural information for the scientific names in the checklist:
-
-```{r}
-parsed_names <- input_data %>%
-  distinct(scientific_name) %>%
-  pull() %>% # Create vector from dataframe
-  parsenames() # An rgbif function
-```
-
-Show scientific names with nomenclatural issues, i.e. not of `type = SCIENTIFIC` or that could not be fully parsed. Note: these are not necessarily incorrect.
-
-```{r}
-parsed_names %>%
-  select(scientificname, type, parsed, parsedpartially, rankmarker) %>%
-  filter(!(type == "SCIENTIFIC" & parsed == "TRUE" & parsedpartially == "FALSE"))
-```
-
-## Taxon ranks
-
-The nameparser function also provides information about the rank of the taxon (in `rankmarker`). Here we join this information with our checklist. Cleaning these ranks will be done in the Taxon Core mapping:
-
-```{r}
-input_data %<>% left_join(
-  parsed_names %>%
-  select(scientificname, rankmarker),
-  by = c("scientific_name" = "scientificname"))
-```
-
 ## Taxon IDs
 
 To link taxa with information in the extension(s), each taxon needs a unique and relatively stable `taxonID`. Here we create one in the form of `dataset_shortname:taxon:hash`, where `hash` is unique code based on scientific name and kingdom (that will remain the same as long as scientific name and kingdom remain the same):
@@ -155,14 +123,14 @@ input_data %<>% mutate(taxon_id = paste(
 
 ## Preview data
 
-Show the number of taxa and distributions per kingdom and rank:
+Show the number of taxa and distributions per kingdom:
 
 ```{r}
 input_data %>%
-  group_by(kingdom, rankmarker) %>%
+  group_by(kingdom) %>%
   summarize(
     `# taxa` = n_distinct(taxon_id),
-    `# distributions` = n()
+    `# rows` = n()
   ) %>%
   adorn_totals("row")
 ```
@@ -257,30 +225,21 @@ taxon %<>% mutate(dwc_kingdom = kingdom)
 
 ### taxonRank
 
-Inspect values:
-
-```{r}
-taxon %>%
-  group_by(rankmarker) %>%
-  count()
-```
-
 Map values by recoding to the [GBIF rank vocabulary](http://rs.gbif.org/vocabulary/gbif/rank_2015-04-24.xml):
 
 ```{r}
-taxon %<>% mutate(dwc_taxonRank = recode(rankmarker,
-  "sp."       = "species",
-  .default    = "",
-  .missing    = ""
+taxon %<>% mutate(dwc_taxonRank = case_when(
+  str_detect(dwc_scientificName, "^[A-Z][a-z]* [a-z]*$") ~ "species",
+  # More specific mappings can be added here
 ))
 ```
 
-Inspect mapped values: 
+Show unmapped values: 
 
 ```{r}
 taxon %>%
-  group_by(rankmarker, dwc_taxonRank) %>%
-  count()
+  filter(is.na(dwc_taxonRank)) %>%
+  select(dwc_scientificName)
 ```
 
 ## Post-processing
