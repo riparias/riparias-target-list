@@ -1,6 +1,6 @@
 ---
 title: "Darwin Core mapping"
-subtitle: "For: LIFE RIPARIAS target species list"
+subtitle: "For: Checklist of LIFE RIPARIAS target species"
 author:
 - Damiano Oldoni
 date: "`r Sys.Date()`"
@@ -11,11 +11,6 @@ output:
     toc: yes
     toc_depth: 3
     toc_float: yes
-#  pdf_document:
-#    df_print: kable
-#    number_sections: yes
-#    toc: yes
-#    toc_depth: 3
 ---
 
 # Setup 
@@ -28,7 +23,15 @@ Install required libraries (only if the libraries have not been installed before
 
 ```{r}
 installed <- rownames(installed.packages())
-required <- c("tidyverse", "tidylog", "magrittr", "tidyr", "here", "janitor", "digest", "rgbif")
+required <- c(
+  "tidyverse",
+  "tidylog",
+  "magrittr",
+  "here",
+  "janitor",
+  "digest",
+  "rgbif"
+)
 if (!all(required %in% installed)) {
   install.packages(required[!required %in% installed])
 }
@@ -51,7 +54,10 @@ library(rgbif)          # To use GBIF services
 Create a data frame `input_data` from the source data:
 
 ```{r}
-input_data <- read_tsv(file = here("data", "raw", "input_taxa.tsv")) 
+input_data <- read_tsv(
+  file = here("data", "raw", "input_taxa.tsv"),
+  show_col_types = FALSE
+) 
 ```
 
 Preview data:
@@ -67,11 +73,12 @@ input_data %>% head(n = 5)
 We reshape the vernacular names columns by creating two columns: `vernacular_name` and `language`:
 
 ```{r}
-input_data %<>%
-  pivot_longer(cols= starts_with("vernacular"),
-               names_to = c("language"), 
-               names_prefix = "vernacular_name_",
-               values_to = "vernacular_name")
+input_data %<>% pivot_longer(
+  cols= starts_with("vernacular"),
+  names_to = c("language"), 
+  names_prefix = "vernacular_name_",
+  values_to = "vernacular_name"
+)
 ```
 
 Preview:
@@ -80,7 +87,7 @@ Preview:
 input_data %>% head(10)
 ```
 
-Some taxa have multiple vernacular names divided by  `"  / "`:
+Some taxa have multiple vernacular names divided by `"  / "`:
 
 ```{r}
 input_data %>%
@@ -91,9 +98,7 @@ input_data %>%
 We split them in separate rows:
 
 ```{r}
-input_data %<>%
-  separate_rows(vernacular_name,
-                sep = " / ")
+input_data %<>% separate_rows(vernacular_name, sep = " / ")
 ```
 
 The input data are now tidy:
@@ -101,7 +106,6 @@ The input data are now tidy:
 ```{r}
 input_data
 ```
-
 
 ## Scientific names
 
@@ -192,20 +196,19 @@ taxon %<>% mutate(dwc_language = "en")
 ### license
 
 ```{r}
-taxon %<>% 
-  mutate(dwc_license = "http://creativecommons.org/publicdomain/zero/1.0/")
+taxon %<>% mutate(dwc_license = "http://creativecommons.org/publicdomain/zero/1.0/")
 ```
 
 ### rightsHolder
 
 ```{r}
-taxon %<>% mutate(dwc_rightsHolder = "INBO") # e.g. "INBO"
+taxon %<>% mutate(dwc_rightsHolder = "INBO")
 ```
 
 ### datasetID
 
 ```{r}
-taxon %<>% mutate(dwc_datasetID = "my_dataset_doi") # e.g. "https://doi.org/10.15468/xvuzfh"
+taxon %<>% mutate(dwc_datasetID = "my_dataset_doi")
 ```
 
 ### institutionCode
@@ -317,11 +320,13 @@ write_csv(taxon, here("data", "processed", "taxon.csv"), na = "")
 Create a `vernacular` data.frame from `input_data` containing only vernacular name information and corresponding taxon IDs:
 
 ```{r}
-vernacular <- input_data %>%
-  select(.data$taxon_id,
-         .data$language,
-         .data$vernacular_name
-)
+vernacular <-
+  input_data %>%
+  select(
+    taxon_id,
+    language,
+    vernacular_name
+  )
 vernacular
 ```
 
@@ -330,6 +335,7 @@ Remove rows with missing vernacular name:
 ```{r}
 vernacular %<>% filter(!is.na(vernacular_name))
 ```
+
 ## Term mapping
 
 ### TaxonID
@@ -337,6 +343,7 @@ vernacular %<>% filter(!is.na(vernacular_name))
 ```{r}
 vernacular %<>% mutate(dwc_taxonID = taxon_id)
 ```
+
 ### vernacularName
 
 ```{r}
