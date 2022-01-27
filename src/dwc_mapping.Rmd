@@ -31,6 +31,7 @@ required <- c(
   "janitor",
   "digest",
   "rgbif"
+  "stringr"
 )
 if (!all(required %in% installed)) {
   install.packages(required[!required %in% installed])
@@ -47,6 +48,7 @@ library(here)           # To find files
 library(janitor)        # To clean input data
 library(digest)         # To generate hashes
 library(rgbif)          # To use GBIF services
+library(stringr)        # To work with strings
 ```
 
 # Read source data
@@ -90,9 +92,9 @@ input_data %>% head(10)
 Some taxa have multiple vernacular names divided by `"  / "`:
 
 ```{r}
-input_data %>%
-  filter(stringr::str_detect(.data$vernacular_name,
-                             pattern = " / "))
+input_data %>% filter(
+  str_detect(.data$vernacular_name, pattern = " / ")
+)
 ```
 
 We split them in separate rows:
