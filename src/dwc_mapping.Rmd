@@ -1,6 +1,6 @@
 ---
 title: "Darwin Core mapping"
-subtitle: "For: LIFE RIPARIAS target species list"
+subtitle: "For: Checklist of LIFE RIPARIAS target species"
 author:
 - Damiano Oldoni
 date: "`r Sys.Date()`"
@@ -11,11 +11,6 @@ output:
     toc: yes
     toc_depth: 3
     toc_float: yes
-#  pdf_document:
-#    df_print: kable
-#    number_sections: yes
-#    toc: yes
-#    toc_depth: 3
 ---
 
 # Setup 
@@ -28,7 +23,15 @@ Install required libraries (only if the libraries have not been installed before
 
 ```{r}
 installed <- rownames(installed.packages())
-required <- c("tidyverse", "tidylog", "magrittr", "tidyr", "here", "janitor", "digest", "rgbif")
+required <- c(
+  "tidyverse",
+  "tidylog",
+  "magrittr",
+  "here",
+  "janitor",
+  "digest",
+  "stringr"
+)
 if (!all(required %in% installed)) {
   install.packages(required[!required %in% installed])
 }
@@ -43,7 +46,7 @@ library(magrittr)       # To use %<>% pipes
 library(here)           # To find files
 library(janitor)        # To clean input data
 library(digest)         # To generate hashes
-library(rgbif)          # To use GBIF services
+library(stringr)        # To work with strings
 ```
 
 # Read source data
@@ -51,7 +54,10 @@ library(rgbif)          # To use GBIF services
 Create a data frame `input_data` from the source data:
 
 ```{r}
-input_data <- read_tsv(file = here("data", "raw", "input_taxa.tsv")) 
+input_data <- read_tsv(
+  file = here("data", "raw", "input_taxa.tsv"),
+  show_col_types = FALSE
+) 
 ```
 
 Preview data:
@@ -67,11 +73,12 @@ input_data %>% head(n = 5)
 We reshape the vernacular names columns by creating two columns: `vernacular_name` and `language`:
 
 ```{r}
-input_data %<>%
-  pivot_longer(cols= starts_with("vernacular"),
-               names_to = c("language"), 
-               names_prefix = "vernacular_name_",
-               values_to = "vernacular_name")
+input_data %<>% pivot_longer(
+  cols= starts_with("vernacular"),
+  names_to = c("language"), 
+  names_prefix = "vernacular_name_",
+  values_to = "vernacular_name"
+)
 ```
 
 Preview:
@@ -80,57 +87,24 @@ Preview:
 input_data %>% head(10)
 ```
 
-Some taxa have multiple vernacular names divided by  `"  / "`:
+Some taxa have multiple vernacular names divided by `"  / "`:
 
 ```{r}
-input_data %>%
-  filter(stringr::str_detect(.data$vernacular_name,
-                             pattern = " / "))
+input_data %>% filter(
+  str_detect(.data$vernacular_name, pattern = " / ")
+)
 ```
 
 We split them in separate rows:
 
 ```{r}
-input_data %<>%
-  separate_rows(vernacular_name,
-                sep = " / ")
+input_data %<>% separate_rows(vernacular_name, sep = " / ")
 ```
 
 The input data are now tidy:
 
 ```{r}
 input_data
-```
-
-
-## Scientific names
-
-Use the [GBIF nameparser](https://www.gbif.org/tools/name-parser) to retrieve nomenclatural information for the scientific names in the checklist:
-
-```{r}
-parsed_names <- input_data %>%
-  distinct(scientific_name) %>%
-  pull() %>% # Create vector from dataframe
-  parsenames() # An rgbif function
-```
-
-Show scientific names with nomenclatural issues, i.e. not of `type = SCIENTIFIC` or that could not be fully parsed. Note: these are not necessarily incorrect.
-
-```{r}
-parsed_names %>%
-  select(scientificname, type, parsed, parsedpartially, rankmarker) %>%
-  filter(!(type == "SCIENTIFIC" & parsed == "TRUE" & parsedpartially == "FALSE"))
-```
-
-## Taxon ranks
-
-The nameparser function also provides information about the rank of the taxon (in `rankmarker`). Here we join this information with our checklist. Cleaning these ranks will be done in the Taxon Core mapping:
-
-```{r}
-input_data %<>% left_join(
-  parsed_names %>%
-  select(scientificname, rankmarker),
-  by = c("scientific_name" = "scientificname"))
 ```
 
 ## Taxon IDs
@@ -149,14 +123,14 @@ input_data %<>% mutate(taxon_id = paste(
 
 ## Preview data
 
-Show the number of taxa and distributions per kingdom and rank:
+Show the number of taxa and distributions per kingdom:
 
 ```{r}
 input_data %>%
-  group_by(kingdom, rankmarker) %>%
+  group_by(kingdom) %>%
   summarize(
     `# taxa` = n_distinct(taxon_id),
-    `# distributions` = n()
+    `# rows` = n()
   ) %>%
   adorn_totals("row")
 ```
@@ -192,20 +166,19 @@ taxon %<>% mutate(dwc_language = "en")
 ### license
 
 ```{r}
-taxon %<>% 
-  mutate(dwc_license = "http://creativecommons.org/publicdomain/zero/1.0/")
+taxon %<>% mutate(dwc_license = "http://creativecommons.org/publicdomain/zero/1.0/")
 ```
 
 ### rightsHolder
 
 ```{r}
-taxon %<>% mutate(dwc_rightsHolder = "INBO") # e.g. "INBO"
+taxon %<>% mutate(dwc_rightsHolder = "INBO")
 ```
 
 ### datasetID
 
 ```{r}
-taxon %<>% mutate(dwc_datasetID = "my_dataset_doi") # e.g. "https://doi.org/10.15468/xvuzfh"
+taxon %<>% mutate(dwc_datasetID = "my_dataset_doi")
 ```
 
 ### institutionCode
@@ -252,36 +225,21 @@ taxon %<>% mutate(dwc_kingdom = kingdom)
 
 ### taxonRank
 
-Inspect values:
-
-```{r}
-taxon %>%
-  group_by(rankmarker) %>%
-  count()
-```
-
 Map values by recoding to the [GBIF rank vocabulary](http://rs.gbif.org/vocabulary/gbif/rank_2015-04-24.xml):
 
 ```{r}
-taxon %<>% mutate(dwc_taxonRank = recode(rankmarker,
-  "sp."       = "species",
-  .default    = "",
-  .missing    = ""
+taxon %<>% mutate(dwc_taxonRank = case_when(
+  str_detect(dwc_scientificName, "^[A-Z][a-z]* [a-z]*$") ~ "species",
+  # More specific mappings can be added here
 ))
 ```
 
-Inspect mapped values: 
+Show unmapped values: 
 
 ```{r}
 taxon %>%
-  group_by(rankmarker, dwc_taxonRank) %>%
-  count()
-```
-
-### nomenclaturalCode
-
-```{r}
-taxon %<>% mutate(dwc_nomenclaturalCode = "ICZN")
+  filter(is.na(dwc_taxonRank)) %>%
+  select(dwc_scientificName)
 ```
 
 ## Post-processing
@@ -317,11 +275,13 @@ write_csv(taxon, here("data", "processed", "taxon.csv"), na = "")
 Create a `vernacular` data.frame from `input_data` containing only vernacular name information and corresponding taxon IDs:
 
 ```{r}
-vernacular <- input_data %>%
-  select(.data$taxon_id,
-         .data$language,
-         .data$vernacular_name
-)
+vernacular <-
+  input_data %>%
+  select(
+    taxon_id,
+    language,
+    vernacular_name
+  )
 vernacular
 ```
 
@@ -330,25 +290,21 @@ Remove rows with missing vernacular name:
 ```{r}
 vernacular %<>% filter(!is.na(vernacular_name))
 ```
+
 ## Term mapping
+
+Map the data to [Vernacular Names](http://rs.gbif.org/extension/gbif/1.0/vernacularname.xml).
 
 ### TaxonID
 
 ```{r}
 vernacular %<>% mutate(dwc_taxonID = taxon_id)
 ```
+
 ### vernacularName
 
 ```{r}
 vernacular %<>% mutate(dwc_vernacularName = vernacular_name)
-```
-
-### source
-
-The `source` is based on expert knowledge: set to `NA`:
-
-```{r}
-vernacular %<>% mutate(dwc_source = NA)
 ```
 
 ### language
