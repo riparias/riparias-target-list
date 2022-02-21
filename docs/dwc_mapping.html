@@ -11,7 +11,7 @@
 
 <meta name="author" content="Damiano Oldoni" />
 
-<meta name="date" content="2022-01-27" />
+<meta name="date" content="2022-02-21" />
 
 <title>Darwin Core mapping</title>
 
@@ -347,13 +347,13 @@ div.tocify {
 <h1 class="title toc-ignore">Darwin Core mapping</h1>
 <h3 class="subtitle">For: Checklist of LIFE RIPARIAS target species</h3>
 <h4 class="author">Damiano Oldoni</h4>
-<h4 class="date">2022-01-27</h4>
+<h4 class="date">2022-02-21</h4>
 
 </div>
 
 
 <div id="setup" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> Setup</h1>
+<h1><span class="header-section-number">1</span> Setup</h1>
 <p>Install required libraries (only if the libraries have not been installed before):</p>
 <pre class="r"><code>installed &lt;- rownames(installed.packages())
 required &lt;- c(
@@ -378,7 +378,7 @@ library(digest)         # To generate hashes
 library(stringr)        # To work with strings</code></pre>
 </div>
 <div id="read-source-data" class="section level1" number="2">
-<h1 number="2"><span class="header-section-number">2</span> Read source data</h1>
+<h1><span class="header-section-number">2</span> Read source data</h1>
 <p>Create a data frame <code>input_data</code> from the source data:</p>
 <pre class="r"><code>input_data &lt;- read_tsv(
   file = here(&quot;data&quot;, &quot;raw&quot;, &quot;input_taxa.tsv&quot;),
@@ -393,9 +393,9 @@ library(stringr)        # To work with strings</code></pre>
 </div>
 </div>
 <div id="process-source-data" class="section level1" number="3">
-<h1 number="3"><span class="header-section-number">3</span> Process source data</h1>
+<h1><span class="header-section-number">3</span> Process source data</h1>
 <div id="tidy-data" class="section level2" number="3.1">
-<h2 number="3.1"><span class="header-section-number">3.1</span> Tidy data</h2>
+<h2><span class="header-section-number">3.1</span> Tidy data</h2>
 <p>We reshape the vernacular names columns by creating two columns: <code>vernacular_name</code> and <code>language</code>:</p>
 <pre class="r"><code>input_data %&lt;&gt;% pivot_longer(
   cols= starts_with(&quot;vernacular&quot;),
@@ -432,7 +432,7 @@ library(stringr)        # To work with strings</code></pre>
 </div>
 </div>
 <div id="taxon-ids" class="section level2" number="3.2">
-<h2 number="3.2"><span class="header-section-number">3.2</span> Taxon IDs</h2>
+<h2><span class="header-section-number">3.2</span> Taxon IDs</h2>
 <p>To link taxa with information in the extension(s), each taxon needs a unique and relatively stable <code>taxonID</code>. Here we create one in the form of <code>dataset_shortname:taxon:hash</code>, where <code>hash</code> is unique code based on scientific name and kingdom (that will remain the same as long as scientific name and kingdom remain the same):</p>
 <pre class="r"><code>vdigest &lt;- Vectorize(digest) # Vectorize digest function to work with vectors
 input_data %&lt;&gt;% mutate(taxon_id = paste(
@@ -444,7 +444,7 @@ input_data %&lt;&gt;% mutate(taxon_id = paste(
 <pre><code>## mutate: new variable &#39;taxon_id&#39; (character) with 29 unique values and 0% NA</code></pre>
 </div>
 <div id="preview-data" class="section level2" number="3.3">
-<h2 number="3.3"><span class="header-section-number">3.3</span> Preview data</h2>
+<h2><span class="header-section-number">3.3</span> Preview data</h2>
 <p>Show the number of taxa and distributions per kingdom:</p>
 <pre class="r"><code>input_data %&gt;%
   group_by(kingdom) %&gt;%
@@ -470,60 +470,60 @@ input_data %&lt;&gt;% mutate(taxon_id = paste(
 </div>
 </div>
 <div id="taxon-core" class="section level1" number="4">
-<h1 number="4"><span class="header-section-number">4</span> Taxon core</h1>
+<h1><span class="header-section-number">4</span> Taxon core</h1>
 <div id="pre-processing" class="section level2" number="4.1">
-<h2 number="4.1"><span class="header-section-number">4.1</span> Pre-processing</h2>
+<h2><span class="header-section-number">4.1</span> Pre-processing</h2>
 <p>Create a dataframe with unique taxa only (ignoring eventual multiple distribution rows):</p>
 <pre class="r"><code>taxon &lt;- input_data %&gt;% distinct(taxon_id, .keep_all = TRUE)</code></pre>
 <pre><code>## distinct: removed 61 rows (68%), 29 rows remaining</code></pre>
 </div>
 <div id="term-mapping" class="section level2" number="4.2">
-<h2 number="4.2"><span class="header-section-number">4.2</span> Term mapping</h2>
+<h2><span class="header-section-number">4.2</span> Term mapping</h2>
 <p>Map the data to <a href="http://rs.gbif.org/core/dwc_taxon_2015-04-24.xml">Darwin Core Taxon</a>.</p>
 <p>Start with record-level terms which contain metadata about the dataset (which is generally the same for all records).</p>
 <div id="language" class="section level3" number="4.2.1">
-<h3 number="4.2.1"><span class="header-section-number">4.2.1</span> language</h3>
+<h3><span class="header-section-number">4.2.1</span> language</h3>
 <pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_language = &quot;en&quot;)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_language&#39; (character) with one unique value and 0% NA</code></pre>
 </div>
 <div id="license" class="section level3" number="4.2.2">
-<h3 number="4.2.2"><span class="header-section-number">4.2.2</span> license</h3>
-<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_license = &quot;http://creativecommons.org/publicdomain/zero/1.0/&quot;)</code></pre>
+<h3><span class="header-section-number">4.2.2</span> license</h3>
+<pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_license = &quot;https://creativecommons.org/publicdomain/zero/1.0/&quot;)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_license&#39; (character) with one unique value and 0% NA</code></pre>
 </div>
 <div id="rightsholder" class="section level3" number="4.2.3">
-<h3 number="4.2.3"><span class="header-section-number">4.2.3</span> rightsHolder</h3>
+<h3><span class="header-section-number">4.2.3</span> rightsHolder</h3>
 <pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_rightsHolder = &quot;INBO&quot;)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_rightsHolder&#39; (character) with one unique value and 0% NA</code></pre>
 </div>
 <div id="datasetid" class="section level3" number="4.2.4">
-<h3 number="4.2.4"><span class="header-section-number">4.2.4</span> datasetID</h3>
+<h3><span class="header-section-number">4.2.4</span> datasetID</h3>
 <pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_datasetID = &quot;my_dataset_doi&quot;)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_datasetID&#39; (character) with one unique value and 0% NA</code></pre>
 </div>
 <div id="institutioncode" class="section level3" number="4.2.5">
-<h3 number="4.2.5"><span class="header-section-number">4.2.5</span> institutionCode</h3>
+<h3><span class="header-section-number">4.2.5</span> institutionCode</h3>
 <pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_institutionCode = &quot;INBO&quot;)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_institutionCode&#39; (character) with one unique value and 0% NA</code></pre>
 </div>
 <div id="datasetname" class="section level3" number="4.2.6">
-<h3 number="4.2.6"><span class="header-section-number">4.2.6</span> datasetName</h3>
+<h3><span class="header-section-number">4.2.6</span> datasetName</h3>
 <pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_datasetName = &quot;Checklist of LIFE RIPARIAS target species&quot;)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_datasetName&#39; (character) with one unique value and 0% NA</code></pre>
 <p>The following terms contain information about the taxon:</p>
 </div>
 <div id="taxonid" class="section level3" number="4.2.7">
-<h3 number="4.2.7"><span class="header-section-number">4.2.7</span> taxonID</h3>
+<h3><span class="header-section-number">4.2.7</span> taxonID</h3>
 <pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_taxonID = taxon_id)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_taxonID&#39; (character) with 29 unique values and 0% NA</code></pre>
 </div>
 <div id="scientificname" class="section level3" number="4.2.8">
-<h3 number="4.2.8"><span class="header-section-number">4.2.8</span> scientificName</h3>
+<h3><span class="header-section-number">4.2.8</span> scientificName</h3>
 <pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_scientificName = scientific_name)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_scientificName&#39; (character) with 29 unique values and 0% NA</code></pre>
 </div>
 <div id="kingdom" class="section level3" number="4.2.9">
-<h3 number="4.2.9"><span class="header-section-number">4.2.9</span> kingdom</h3>
+<h3><span class="header-section-number">4.2.9</span> kingdom</h3>
 <p>Inspect values:</p>
 <pre class="r"><code>taxon %&gt;%
   group_by(kingdom) %&gt;%
@@ -540,7 +540,7 @@ input_data %&lt;&gt;% mutate(taxon_id = paste(
 <pre><code>## mutate: new variable &#39;dwc_kingdom&#39; (character) with 2 unique values and 0% NA</code></pre>
 </div>
 <div id="taxonrank" class="section level3" number="4.2.10">
-<h3 number="4.2.10"><span class="header-section-number">4.2.10</span> taxonRank</h3>
+<h3><span class="header-section-number">4.2.10</span> taxonRank</h3>
 <p>Map values by recoding to the <a href="http://rs.gbif.org/vocabulary/gbif/rank_2015-04-24.xml">GBIF rank vocabulary</a>:</p>
 <pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_taxonRank = case_when(
   str_detect(dwc_scientificName, &quot;^[A-Z][a-z]* [a-z]*$&quot;) ~ &quot;species&quot;,
@@ -561,7 +561,7 @@ input_data %&lt;&gt;% mutate(taxon_id = paste(
 </div>
 </div>
 <div id="post-processing" class="section level2" number="4.3">
-<h2 number="4.3"><span class="header-section-number">4.3</span> Post-processing</h2>
+<h2><span class="header-section-number">4.3</span> Post-processing</h2>
 <p>Only keep the Darwin Core columns:</p>
 <pre class="r"><code>taxon %&lt;&gt;% select(starts_with(&quot;dwc_&quot;))</code></pre>
 <pre><code>## select: dropped 11 variables (scientific_name, gbif_key, kingdom, is_project_species, is_alert_species, …)</code></pre>
@@ -571,7 +571,7 @@ input_data %&lt;&gt;% mutate(taxon_id = paste(
 <pre class="r"><code>taxon %&gt;% head()</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["language"],"name":[1],"type":["chr"],"align":["left"]},{"label":["license"],"name":[2],"type":["chr"],"align":["left"]},{"label":["rightsHolder"],"name":[3],"type":["chr"],"align":["left"]},{"label":["datasetID"],"name":[4],"type":["chr"],"align":["left"]},{"label":["institutionCode"],"name":[5],"type":["chr"],"align":["left"]},{"label":["datasetName"],"name":[6],"type":["chr"],"align":["left"]},{"label":["taxonID"],"name":[7],"type":["chr"],"align":["left"]},{"label":["scientificName"],"name":[8],"type":["chr"],"align":["left"]},{"label":["kingdom"],"name":[9],"type":["chr"],"align":["left"]},{"label":["taxonRank"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b","8":"Hydrocotyle ranunculoides","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6","8":"Ludwigia grandiflora","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:2854a8568656c31c950b2ee198a4aaf2","8":"Ludwigia peploides","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:98fb8615055cc6d6e58dd5bba656f594","8":"Myriophyllum aquaticum","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:701d040f80f720a60634ede2d563c8cc","8":"Myriophyllum heterophyllum","9":"Plantae","10":"species"},{"1":"en","2":"http://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:0c23faf898d4a38a958864dd9722f92d","8":"Lagarosiphon major","9":"Plantae","10":"species"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["language"],"name":[1],"type":["chr"],"align":["left"]},{"label":["license"],"name":[2],"type":["chr"],"align":["left"]},{"label":["rightsHolder"],"name":[3],"type":["chr"],"align":["left"]},{"label":["datasetID"],"name":[4],"type":["chr"],"align":["left"]},{"label":["institutionCode"],"name":[5],"type":["chr"],"align":["left"]},{"label":["datasetName"],"name":[6],"type":["chr"],"align":["left"]},{"label":["taxonID"],"name":[7],"type":["chr"],"align":["left"]},{"label":["scientificName"],"name":[8],"type":["chr"],"align":["left"]},{"label":["kingdom"],"name":[9],"type":["chr"],"align":["left"]},{"label":["taxonRank"],"name":[10],"type":["chr"],"align":["left"]}],"data":[{"1":"en","2":"https://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:4921c146a1187cfb285266e3dcf4dc7b","8":"Hydrocotyle ranunculoides","9":"Plantae","10":"species"},{"1":"en","2":"https://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:54838cb38e1f9cecfe059593e32123e6","8":"Ludwigia grandiflora","9":"Plantae","10":"species"},{"1":"en","2":"https://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:2854a8568656c31c950b2ee198a4aaf2","8":"Ludwigia peploides","9":"Plantae","10":"species"},{"1":"en","2":"https://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:98fb8615055cc6d6e58dd5bba656f594","8":"Myriophyllum aquaticum","9":"Plantae","10":"species"},{"1":"en","2":"https://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:701d040f80f720a60634ede2d563c8cc","8":"Myriophyllum heterophyllum","9":"Plantae","10":"species"},{"1":"en","2":"https://creativecommons.org/publicdomain/zero/1.0/","3":"INBO","4":"my_dataset_doi","5":"INBO","6":"Checklist of LIFE RIPARIAS target species","7":"riparias-target-list:taxon:0c23faf898d4a38a958864dd9722f92d","8":"Lagarosiphon major","9":"Plantae","10":"species"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>Save to CSV:</p>
@@ -579,9 +579,9 @@ input_data %&lt;&gt;% mutate(taxon_id = paste(
 </div>
 </div>
 <div id="map-vernacular-names-extension" class="section level1" number="5">
-<h1 number="5"><span class="header-section-number">5</span> Map vernacular names extension</h1>
+<h1><span class="header-section-number">5</span> Map vernacular names extension</h1>
 <div id="pre-processing-1" class="section level2" number="5.1">
-<h2 number="5.1"><span class="header-section-number">5.1</span> Pre-processing</h2>
+<h2><span class="header-section-number">5.1</span> Pre-processing</h2>
 <p>Create a <code>vernacular</code> data.frame from <code>input_data</code> containing only vernacular name information and corresponding taxon IDs:</p>
 <pre class="r"><code>vernacular &lt;-
   input_data %&gt;%
@@ -602,26 +602,26 @@ input_data %&lt;&gt;% mutate(taxon_id = paste(
 <pre><code>## filter: removed 12 rows (13%), 78 rows remaining</code></pre>
 </div>
 <div id="term-mapping-1" class="section level2" number="5.2">
-<h2 number="5.2"><span class="header-section-number">5.2</span> Term mapping</h2>
+<h2><span class="header-section-number">5.2</span> Term mapping</h2>
 <p>Map the data to <a href="http://rs.gbif.org/extension/gbif/1.0/vernacularname.xml">Vernacular Names</a>.</p>
 <div id="taxonid-1" class="section level3" number="5.2.1">
-<h3 number="5.2.1"><span class="header-section-number">5.2.1</span> TaxonID</h3>
+<h3><span class="header-section-number">5.2.1</span> TaxonID</h3>
 <pre class="r"><code>vernacular %&lt;&gt;% mutate(dwc_taxonID = taxon_id)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_taxonID&#39; (character) with 26 unique values and 0% NA</code></pre>
 </div>
 <div id="vernacularname" class="section level3" number="5.2.2">
-<h3 number="5.2.2"><span class="header-section-number">5.2.2</span> vernacularName</h3>
+<h3><span class="header-section-number">5.2.2</span> vernacularName</h3>
 <pre class="r"><code>vernacular %&lt;&gt;% mutate(dwc_vernacularName = vernacular_name)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_vernacularName&#39; (character) with 78 unique values and 0% NA</code></pre>
 </div>
 <div id="language-1" class="section level3" number="5.2.3">
-<h3 number="5.2.3"><span class="header-section-number">5.2.3</span> language</h3>
+<h3><span class="header-section-number">5.2.3</span> language</h3>
 <pre class="r"><code>vernacular %&lt;&gt;% mutate(dwc_language = language)</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_language&#39; (character) with 3 unique values and 0% NA</code></pre>
 </div>
 </div>
 <div id="post-processing-1" class="section level2" number="5.3">
-<h2 number="5.3"><span class="header-section-number">5.3</span> Post-processing</h2>
+<h2><span class="header-section-number">5.3</span> Post-processing</h2>
 <p>Only keep the Darwin Core columns:</p>
 <pre class="r"><code>vernacular %&lt;&gt;% select(starts_with(&quot;dwc_&quot;))</code></pre>
 <pre><code>## select: dropped 3 variables (taxon_id, language, vernacular_name)</code></pre>
