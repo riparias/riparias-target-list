@@ -543,7 +543,7 @@ input_data %&lt;&gt;% mutate(taxon_id = paste(
 <h3 number="4.2.10"><span class="header-section-number">4.2.10</span> taxonRank</h3>
 <p>Map values by recoding to the <a href="http://rs.gbif.org/vocabulary/gbif/rank_2015-04-24.xml">GBIF rank vocabulary</a>:</p>
 <pre class="r"><code>taxon %&lt;&gt;% mutate(dwc_taxonRank = case_when(
-  str_detect(dwc_scientificName, &quot;^[A-Z][a-z]* [a-z]*$&quot;) ~ &quot;species&quot;,
+  str_detect(dwc_scientificName, &quot;^[A-Z][a-z]+ [a-z]+$&quot;) ~ &quot;species&quot;,
   # More specific mappings can be added here
 ))</code></pre>
 <pre><code>## mutate: new variable &#39;dwc_taxonRank&#39; (character) with one unique value and 0% NA</code></pre>

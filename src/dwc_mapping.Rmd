@@ -229,7 +229,7 @@ Map values by recoding to the [GBIF rank vocabulary](http://rs.gbif.org/vocabula
 
 ```{r}
 taxon %<>% mutate(dwc_taxonRank = case_when(
-  str_detect(dwc_scientificName, "^[A-Z][a-z]* [a-z]*$") ~ "species",
+  str_detect(dwc_scientificName, "^[A-Z][a-z]+ [a-z]+$") ~ "species",
   # More specific mappings can be added here
 ))
 ```
