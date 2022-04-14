@@ -6,7 +6,7 @@
 
 <!-- This section gives a quick description of what this repository is for. At least update the "... the data of (blank) ..." or edit as you see fit. -->
 
-This repository contains the functionality to standardize the data of the [LIFE RIPARIAS](https://www.riparias.be/) target species list to a [Darwin Core checklist](https://www.gbif.org/dataset-classes) that can be harvested by [GBIF](http://www.gbif.org).
+This repository contains the functionality to standardize the data of the [LIFE RIPARIAS](https://www.riparias.be/) target species list to a [Darwin Core Archive](https://www.gbif.org/darwin-core) that can be harvested by [GBIF](https://www.gbif.org/).
 
 ## Workflow
 
