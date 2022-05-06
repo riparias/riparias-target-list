@@ -13,7 +13,7 @@
 
 <title>LIFE RIPARIAS target species list</title>
 
-<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14.1/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="static/css/riparias.css" type="text/css" />
 
 
@@ -85,6 +86,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -237,7 +241,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -271,16 +275,17 @@ $(document).ready(function () {
 </div>
 
 
+<p><a href="https://www.riparias.be/"><img src="https://img.shields.io/static/v1?label=published+through&amp;message=LIFE+RIPARIAS&amp;labelColor=00a58d&amp;color=ffffff" alt="funding" /></a></p>
 <div id="life-riparias-target-species-list" class="section level1">
 <h1>LIFE RIPARIAS target species list</h1>
 <div id="rationale" class="section level2">
 <h2>Rationale</h2>
 <!-- This section gives a quick description of what this repository is for. At least update the "... the data of (blank) ..." or edit as you see fit. -->
-<p>This repository contains the functionality to standardize the data of the <a href="https://www.riparias.be/">LIFE RIPARIAS</a> target species list to a <a href="https://www.gbif.org/dataset-classes">Darwin Core checklist</a> that can be harvested by <a href="http://www.gbif.org">GBIF</a>.</p>
+<p>This repository contains the functionality to standardize the data of the <a href="https://www.riparias.be/">LIFE RIPARIAS</a> target species list to a <a href="https://www.gbif.org/darwin-core">Darwin Core Archive</a> that can be harvested by <a href="https://www.gbif.org/">GBIF</a>.</p>
 </div>
 <div id="workflow" class="section level2">
 <h2>Workflow</h2>
-<p><a href="https://github.com/riparias/riparias-target-list/blob/master/data/raw">source data</a> (derived by a <a href="https://drive.google.com/file/d/1B9Rrrr7DU2Iaf3A9vc5bNQBhw1g-slMN/view?usp=sharing">PDF document</a> which summarizes the information contained in a descriptive <a href="https://docs.google.com/spreadsheets/d/12cwX7xne7GTQn1nFDp2tuzJOTWcaOidikcsizaYTAn0/edit?usp=sharing">Google Spreadsheet</a> ) → Darwin Core <a href="src/dwc_mapping.Rmd">mapping script</a> → generated <a href="data/processed">Darwin Core files</a></p>
+<p><a href="https://github.com/riparias/riparias-target-list/blob/master/data/raw">source data</a> (derived from a <a href="https://drive.google.com/file/d/1B9Rrrr7DU2Iaf3A9vc5bNQBhw1g-slMN/view?usp=sharing">PDF document</a> which summarizes the information contained in a descriptive <a href="https://docs.google.com/spreadsheets/d/12cwX7xne7GTQn1nFDp2tuzJOTWcaOidikcsizaYTAn0/edit?usp=sharing">Google Spreadsheet</a>) → Darwin Core <a href="src/dwc_mapping.Rmd">mapping script</a> → generated <a href="data/processed">Darwin Core files</a></p>
 </div>
 <div id="published-dataset" class="section level2">
 <h2>Published dataset</h2>
