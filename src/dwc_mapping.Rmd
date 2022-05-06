@@ -178,7 +178,7 @@ taxon %<>% mutate(dwc_rightsHolder = "INBO")
 ### datasetID
 
 ```{r}
-taxon %<>% mutate(dwc_datasetID = "my_dataset_doi")
+taxon %<>% mutate(dwc_datasetID = "https://doi.org/10.15468/p4ugqr")
 ```
 
 ### institutionCode
