@@ -16,8 +16,8 @@ This repository contains the functionality to standardize the data of the [LIFE 
 
 <!-- This section provides links to the published dataset. Obviously, you'll only be able to add those links once you have published your dataset. 😋 -->
 
-* [Dataset on the IPT](<!-- Add the URL of the dataset on the IPT here -->)
-* [Dataset on GBIF](<!-- Add the DOI of the dataset on GBIF here -->)
+* [Dataset on the IPT](https://ipt.inbo.be/resource?r=riparias-target-list)
+* [Dataset on GBIF](https://doi.org/10.15468/p4ugqr)
 
 ## Repo structure
 
