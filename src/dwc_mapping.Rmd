@@ -68,6 +68,19 @@ input_data %>% head(n = 5)
 
 # Process source data
 
+## Improve matching to GBIF Backbone
+
+Replace _Hydrocotyle ranunculoides_ with _Hydrocotyle ranunculoides L.fil._ to improve the match to GBIF Backbone (see issue [#17](https://github.com/riparias/riparias-target-list/issues/17)):
+
+```{r improve_match_Hydrocotyle_ranunculoides}
+input_data <- 
+  input_data %>%
+  mutate(scientific_name = ifelse(
+    .data$scientific_name == "Hydrocotyle ranunculoides",
+    "Hydrocotyle ranunculoides L.fil.",
+    .data$scientific_name))
+```
+
 ## Tidy data
 
 We reshape the vernacular names columns by creating two columns: `vernacular_name` and `language`:
@@ -231,7 +244,9 @@ Map values by recoding to the [GBIF rank vocabulary](http://rs.gbif.org/vocabula
 taxon %<>% mutate(dwc_taxonRank = case_when(
   str_detect(dwc_scientificName, "^[A-Z][a-z]+ [a-z]+$") ~ "species",
   # More specific mappings can be added here
-))
+  str_detect(dwc_scientificName, "Hydrocotyle ranunculoides L.fil.") ~ "species"
+  )
+)
 ```
 
 Show unmapped values: 
