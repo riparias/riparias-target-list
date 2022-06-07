@@ -72,7 +72,7 @@ input_data %>% head(n = 5)
 
 Replace _Hydrocotyle ranunculoides_ with _Hydrocotyle ranunculoides L.fil._ to improve the match to GBIF Backbone (see issue [#17](https://github.com/riparias/riparias-target-list/issues/17)):
 
-```{r improve_match_Hydrocotyle_ranunculoides}
+```{r}
 input_data <- 
   input_data %>%
   mutate(scientific_name = ifelse(
