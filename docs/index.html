@@ -13,7 +13,7 @@
 
 <title>LIFE RIPARIAS target species list</title>
 
-<script src="site_libs/header-attrs-2.14.1/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.14.2/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
@@ -275,30 +275,52 @@ $(document).ready(function () {
 </div>
 
 
-<p><a href="https://www.riparias.be/"><img src="https://img.shields.io/static/v1?label=published+through&amp;message=LIFE+RIPARIAS&amp;labelColor=00a58d&amp;color=ffffff" alt="funding" /></a></p>
+<p><a href="https://www.riparias.be/"><img
+src="https://img.shields.io/static/v1?label=published+through&amp;message=LIFE+RIPARIAS&amp;labelColor=00a58d&amp;color=ffffff"
+alt="funding" /></a></p>
 <div id="life-riparias-target-species-list" class="section level1">
 <h1>LIFE RIPARIAS target species list</h1>
 <div id="rationale" class="section level2">
 <h2>Rationale</h2>
 <!-- This section gives a quick description of what this repository is for. At least update the "... the data of (blank) ..." or edit as you see fit. -->
-<p>This repository contains the functionality to standardize the data of the <a href="https://www.riparias.be/">LIFE RIPARIAS</a> target species list to a <a href="https://www.gbif.org/darwin-core">Darwin Core Archive</a> that can be harvested by <a href="https://www.gbif.org/">GBIF</a>.</p>
+<p>This repository contains the functionality to standardize the data of
+the <a href="https://www.riparias.be/">LIFE RIPARIAS</a> target species
+list to a <a href="https://www.gbif.org/darwin-core">Darwin Core
+Archive</a> that can be harvested by <a
+href="https://www.gbif.org/">GBIF</a>.</p>
 </div>
 <div id="workflow" class="section level2">
 <h2>Workflow</h2>
-<p><a href="https://github.com/riparias/riparias-target-list/blob/master/data/raw">source data</a> (derived from a <a href="https://drive.google.com/file/d/16RCF-JRALPweB1KajQ62ngK9vnqnIw6x/view?usp=sharing">PDF document</a> which summarizes the information contained in a descriptive <a href="https://docs.google.com/spreadsheets/d/12cwX7xne7GTQn1nFDp2tuzJOTWcaOidikcsizaYTAn0/edit?usp=sharing">Google Spreadsheet</a>) → Darwin Core <a href="src/dwc_mapping.Rmd">mapping script</a> → generated <a href="data/processed">Darwin Core files</a></p>
+<p><a
+href="https://github.com/riparias/riparias-target-list/blob/master/data/raw">source
+data</a> (derived from a <a
+href="https://drive.google.com/file/d/16RCF-JRALPweB1KajQ62ngK9vnqnIw6x/view?usp=sharing">PDF
+document</a> which summarizes the information contained in a descriptive
+<a
+href="https://docs.google.com/spreadsheets/d/12cwX7xne7GTQn1nFDp2tuzJOTWcaOidikcsizaYTAn0/edit?usp=sharing">Google
+Spreadsheet</a>) → Darwin Core <a href="src/dwc_mapping.Rmd">mapping
+script</a> → generated <a href="data/processed">Darwin Core
+files</a></p>
 </div>
 <div id="published-dataset" class="section level2">
 <h2>Published dataset</h2>
 <!-- This section provides links to the published dataset. Obviously, you'll only be able to add those links once you have published your dataset. 😋 -->
 <ul>
-<li><a href="https://ipt.inbo.be/resource?r=riparias-target-list">Dataset on the IPT</a></li>
+<li><a
+href="https://ipt.inbo.be/resource?r=riparias-target-list">Dataset on
+the IPT</a></li>
 <li><a href="https://doi.org/10.15468/p4ugqr">Dataset on GBIF</a></li>
 </ul>
 </div>
 <div id="repo-structure" class="section level2">
 <h2>Repo structure</h2>
 <!-- This section helps users (and probably you!) to find their way around this repository. You can leave it as is, unless you're starting to adapt the structure a lot. -->
-<p>The repository structure is based on <a href="http://drivendata.github.io/cookiecutter-data-science/">Cookiecutter Data Science</a> and the <a href="https://github.com/trias-project/checklist-recipe">Checklist recipe</a>. Files and directories indicated with <code>GENERATED</code> should not be edited manually.</p>
+<p>The repository structure is based on <a
+href="http://drivendata.github.io/cookiecutter-data-science/">Cookiecutter
+Data Science</a> and the <a
+href="https://github.com/trias-project/checklist-recipe">Checklist
+recipe</a>. Files and directories indicated with <code>GENERATED</code>
+should not be edited manually.</p>
 <pre><code>├── README.md              : Description of this repository
 ├── LICENSE                : Repository license
 ├── riparias-target-list.Rproj : RStudio project file
@@ -319,18 +341,26 @@ $(document).ready(function () {
 <h2>Installation</h2>
 <!-- This section is for users who want to download/adapt your checklist repository. You can leave it as is. -->
 <ol style="list-style-type: decimal">
-<li>Click on <code>Use this template</code> to create a new repository on your account</li>
+<li>Click on <code>Use this template</code> to create a new repository
+on your account</li>
 <li>Open the RStudio project file</li>
-<li>Open the <code>dwc_mapping.Rmd</code> <a href="https://rmarkdown.rstudio.com/">R Markdown file</a> in RStudio</li>
+<li>Open the <code>dwc_mapping.Rmd</code> <a
+href="https://rmarkdown.rstudio.com/">R Markdown file</a> in
+RStudio</li>
 <li>Install any required packages</li>
-<li>Click <code>Run &gt; Run All</code> to generate the processed data</li>
-<li>Alternatively, click <code>Build &gt; Build website</code> to generate the processed data and build the website in <code>docs/</code> (advanced)</li>
+<li>Click <code>Run &gt; Run All</code> to generate the processed
+data</li>
+<li>Alternatively, click <code>Build &gt; Build website</code> to
+generate the processed data and build the website in <code>docs/</code>
+(advanced)</li>
 </ol>
 </div>
 <div id="license" class="section level2">
 <h2>License</h2>
 <!-- The license is the open source license for the code and documentation in this repository, not the checklist data (that you can define in dwc_mapping.Rmd). As your repository is based on https://github.com/trias-project/checklist-recipe, we'd like it if you kept the open and permissive MIT license. You're welcome to add your name as a copyright holder (because your are for your own code contributions), which you can do in the LICENSE file. If you want to release your repository under a different license, please indicate somehow that it was based on https://github.com/trias-project/checklist-recipe. We know, licenses are complicated. See https://choosealicense.com/ for more information. -->
-<p><a href="LICENSE">MIT License</a> for the code and documentation in this repository. The included data is released under another license.</p>
+<p><a href="LICENSE">MIT License</a> for the code and documentation in
+this repository. The included data is released under another
+license.</p>
 </div>
 </div>
 
