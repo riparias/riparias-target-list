@@ -1,31 +1,31 @@
 scientific_name	gbif_key	vernacular_name_en	vernacular_name_nl	vernacular_name_fr	kingdom	is_project_species	is_alert_species	is_crayfish	is_aquatic_plant	is_riparian_plant
-Hydrocotyle ranunculoides	7978544	floating pennywort	grote waternavel	Hydrocotyle fausse-renoncule	Plantae	T	F	F	T	F
+Hydrocotyle ranunculoides	7978544	floating pennywort	grote waternavel	hydrocotyle fausse-renoncule	Plantae	T	F	F	T	F
 Ludwigia grandiflora	5421039	water-primrose	waterteunisbloem	jussie à grandes fleurs	Plantae	T	F	F	T	F
-Ludwigia peploides	5420991	floating primrose-willow	kleine waterteunisbloem	Jussie rampante	Plantae	T	F	F	T	F
-Myriophyllum aquaticum	5361785	parrot's feather	parelvederkruid	Myriophylle du Brésil	Plantae	T	F	F	T	F
-Myriophyllum heterophyllum	5361762	broadleaf watermilfoil	ongelijkbladig vederkruid	Myriophylle hétérophylle	Plantae	T	F	F	T	F
-Lagarosiphon major	2865565	curly waterweed	verspreidbladige waterpest	elodée à feuilles alternes	Plantae	T	F	F	T	F
-Cabomba caroliniana	2882443	fanwort	waterwaaier	Cabomba	Plantae	T	F	F	T	F
-Heracleum mantegazzianum	3034825	giant hogweed	reuzenberenklauw	Berce du Caucase	Plantae	T	F	F	F	T
-Heracleum persicum	8000520	Persian hogweed	Perzische berenklauw	Berce de Perse	Plantae	T	F	F	F	T
-Heracleum sosnowskyi	3642949	Sosnowsky's hogweed	Sosnowsky's berenklauw	Berce de Sosnowsky	Plantae	T	F	F	F	T
-Impatiens glandulifera	2891770	Himalayan balsam	reuzenbalsemien	Balsamine de l'Himalaya	Plantae	T	F	F	F	T
-Koenigia polystachya	8848208	Himalayan knotweed	Afghaanse duizendknoop	Renouée à nombreux épis	Plantae	T	F	F	F	T
-Lysichiton americanus	2869311	American skunk cabbage	moerasaronskelk	Faux arum	Plantae	T	F	F	F	T
-Procambarus clarkii	2227300	red swamp crayfish	rode Amerikaanse rivierkreeft	Écrevisse de Louisiane	Animalia	T	F	T	F	F
-Faxonius virilis	8971201	virile crayfish	geknobbelde Amerikaanse rivierkreeft	Écrevisse à pinces bleues	Animalia	T	F	T	F	F
-Faxonius rusticus	8979506	rusty crayfish	roestbruine Amerikaanse rivierkreeft	Écrevisse à taches rouges	Animalia	T	F	T	F	F
-Procambarus virginalis	9442269	marbled crayfish	marmerkreeft	Écrevisse marbrée	Animalia	T	F	T	F	F
-Egeria densa	5329260	greater pondweed	Egeria	Élodée dense	Plantae	F	T	F	T	F
-Aponogeton distachyos	5328593	Cape-pondweed / water hawthorn	Kaapse waterlelie	Vanille d'eau / Aponogéton odorant	Plantae	F	T	F	T	F
-Pontederia cordata	2766030	pickerelweed	moerashyacint / snoekkruid	Pontédérie à feuilles en cœur	Plantae	F	T	F	T	F
-Crassula helmsii	5362054	New Zealand pigmyweed / Australian swamp stonecrop	watercrassula	Crassule des étangs	Plantae	F	T	F	T	T
-Petasites japonicus	3088310	giant butterbur	Japans hoefblad	Pétasitè du Japon	Plantae	F	T	F	F	T
-Zizania latifolia	2703231	Manchurian wildrice	Mantsjoerese wilde rijst	Riz sauvage de Mandchourie	Plantae	F	T	F	F	T
-Erythranthe guttata	7346102	monkeyflower	gele maskerbloem	Mimule tachetée	Plantae	F	T	F	F	T
+Ludwigia peploides	5420991	floating primrose-willow	kleine waterteunisbloem	jussie rampante	Plantae	T	F	F	T	F
+Myriophyllum aquaticum	5361785	parrot's feather	parelvederkruid	myriophylle du Brésil	Plantae	T	F	F	T	F
+Myriophyllum heterophyllum	5361762	broadleaf watermilfoil	ongelijkbladig vederkruid	myriophylle hétérophylle	Plantae	T	F	F	T	F
+Lagarosiphon major	2865565	curly waterweed	verspreidbladige waterpest	élodée à feuilles alternes	Plantae	T	F	F	T	F
+Cabomba caroliniana	2882443	fanwort	waterwaaier	cabomba	Plantae	T	F	F	T	F
+Heracleum mantegazzianum	3034825	giant hogweed	reuzenberenklauw	berce du Caucase	Plantae	T	F	F	F	T
+Heracleum persicum	8000520	Persian hogweed	Perzische berenklauw	berce de Perse	Plantae	T	F	F	F	T
+Heracleum sosnowskyi	3642949	Sosnowsky's hogweed	Sosnowsky's berenklauw	berce de Sosnowsky	Plantae	T	F	F	F	T
+Impatiens glandulifera	2891770	Himalayan balsam	reuzenbalsemien	balsamine de l'Himalaya	Plantae	T	F	F	F	T
+Koenigia polystachya	8848208	Himalayan knotweed	Afghaanse duizendknoop	renouée à nombreux épis	Plantae	T	F	F	F	T
+Lysichiton americanus	2869311	American skunk cabbage	moerasaronskelk	faux arum	Plantae	T	F	F	F	T
+Procambarus clarkii	2227300	red swamp crayfish	rode Amerikaanse rivierkreeft	écrevisse de Louisiane	Animalia	T	F	T	F	F
+Faxonius virilis	8971201	virile crayfish	geknobbelde Amerikaanse rivierkreeft	écrevisse à pinces bleues	Animalia	T	F	T	F	F
+Faxonius rusticus	8979506	rusty crayfish	roestbruine Amerikaanse rivierkreeft	écrevisse à taches rouges	Animalia	T	F	T	F	F
+Procambarus virginalis	9442269	marbled crayfish	marmerkreeft	écrevisse marbrée	Animalia	T	F	T	F	F
+Egeria densa	5329260	greater pondweed	egeria	élodée dense	Plantae	F	T	F	T	F
+Aponogeton distachyos	5328593	Cape-pondweed / water hawthorn	Kaapse waterlelie	vanille d'eau / aponogéton odorant	Plantae	F	T	F	T	F
+Pontederia cordata	2766030	pickerelweed	moerashyacint / snoekkruid	pontédérie à feuilles en cœur	Plantae	F	T	F	T	F
+Crassula helmsii	5362054	New Zealand pigmyweed / Australian swamp stonecrop	watercrassula	crassule des étangs	Plantae	F	T	F	T	T
+Petasites japonicus	3088310	giant butterbur	Japans hoefblad	pétasitè du Japon	Plantae	F	T	F	F	T
+Zizania latifolia	2703231	Manchurian wildrice	Mantsjoerese wilde rijst	riz sauvage de Mandchourie	Plantae	F	T	F	F	T
+Erythranthe guttata	7346102	monkeyflower	gele maskerbloem	mimule tachetée	Plantae	F	T	F	F	T
 Houttuynia cordata	5384931	Chinese lizard tail	moerasanemoon	poivre de Chine	Plantae	F	T	F	F	T
-Saururus cernuus	5384932	lizard's tail	Leidse plant	Lézardelle penchée Riparian plant	Plantae	F	T	F	F	T
-Procambarus acutus	2227289	white river crayfish	gestreepte Amerikaanse rivierkreeft	Ecrevisse blanche de rivière	Animalia	F	T	T	F	F
-Faxonius immunis	8930656	calico crayfish	calicotrivierkreeft	Ecrevisse calicot	Animalia	F	T	T	F	F
-Faxonius juvenilis	8721209	Kentucky river crayfish	Kentuckyrivierkreeft	Écrevisse juvénile	Animalia	F	T	T	F	F
-Cherax destructor	4417558	Australian yabbi	gewone yabby	Ecrevisse de Murray	Animalia	F	T	T		F
+Saururus cernuus	5384932	lizard's tail	Leidse plant	lézardelle penchée	Plantae	F	T	F	F	T
+Procambarus acutus	2227289	white river crayfish	gestreepte Amerikaanse rivierkreeft	écrevisse blanche de rivière	Animalia	F	T	T	F	F
+Faxonius immunis	8930656	calico crayfish	calicotrivierkreeft	écrevisse calicot	Animalia	F	T	T	F	F
+Faxonius juvenilis	8721209	Kentucky river crayfish	Kentuckyrivierkreeft	écrevisse juvénile	Animalia	F	T	T	F	F
+Cherax destructor	4417558	Australian yabbi	gewone yabby	écrevisse de Murray	Animalia	F	T	T		F
