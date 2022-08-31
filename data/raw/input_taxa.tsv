@@ -10,9 +10,11 @@ Heracleum mantegazzianum	3034825	giant hogweed	reuzenberenklauw	Berce du Caucase
 Heracleum persicum	8000520	Persian hogweed	Perzische berenklauw	Berce de Perse	Plantae	T	F	F	F	T
 Heracleum sosnowskyi	3642949	Sosnowsky's hogweed	Sosnowsky's berenklauw	Berce de Sosnowsky	Plantae	T	F	F	F	T
 Impatiens glandulifera	2891770	Himalayan balsam	reuzenbalsemien	Balsamine de l'Himalaya	Plantae	T	F	F	F	T
+Koenigia polystachya	8848208	Himalayan knotweed	Afghaanse duizendknoop	Renouée à nombreux épis	Plantae	T	F	F	F	T
 Lysichiton americanus	2869311	American skunk cabbage	moerasaronskelk	Faux arum	Plantae	T	F	F	F	T
 Procambarus clarkii	2227300	red swamp crayfish	rode Amerikaanse rivierkreeft	Écrevisse de Louisiane	Animalia	T	F	T	F	F
 Faxonius virilis	8971201	virile crayfish	geknobbelde Amerikaanse rivierkreeft	Écrevisse à pinces bleues	Animalia	T	F	T	F	F
+Faxonius rusticus	8979506	rusty crayfish	roestbruine Amerikaanse rivierkreeft	Écrevisse à taches rouges	Animalia	T	F	T	F	F
 Procambarus virginalis	9442269	marbled crayfish	marmerkreeft	Écrevisse marbrée	Animalia	T	F	T	F	F
 Egeria densa	5329260	greater pondweed	Egeria	Élodée dense	Plantae	F	T	F	T	F
 Aponogeton distachyos	5328593	Cape-pondweed / water hawthorn	Kaapse waterlelie	Vanille d'eau / Aponogéton odorant	Plantae	F	T	F	T	F
@@ -22,10 +24,8 @@ Petasites japonicus	3088310	giant butterbur	Japans hoefblad	Pétasitè du Japon	
 Zizania latifolia	2703231	Manchurian wildrice	Mantsjoerese wilde rijst	Riz sauvage de Mandchourie	Plantae	F	T	F	F	T
 Erythranthe guttata	7346102	monkeyflower	gele maskerbloem	Mimule tachetée	Plantae	F	T	F	F	T
 Houttuynia cordata	5384931	Chinese lizard tail	moerasanemoon	poivre de Chine	Plantae	F	T	F	F	T
-Koenigia polystachya	8848208	Himalayan knotweed	Afghaanse duizendknoop	Renouée à nombreux épis	Plantae	F	T	F	F	T
 Saururus cernuus	5384932	lizard's tail	Leidse plant	Lézardelle penchée Riparian plant	Plantae	F	T	F	F	T
 Procambarus acutus	2227289	white river crayfish	gestreepte Amerikaanse rivierkreeft	Ecrevisse blanche de rivière	Animalia	F	T	T	F	F
-Faxonius rusticus	8979506	rusty crayfish	roestbruine Amerikaanse rivierkreeft	Écrevisse à taches rouges	Animalia	F	T	T	F	F
 Faxonius immunis	8930656	calico crayfish	calicotrivierkreeft	Ecrevisse calicot	Animalia	F	T	T	F	F
 Faxonius juvenilis	8721209	Kentucky river crayfish	Kentuckyrivierkreeft	Écrevisse juvénile	Animalia	F	T	T	F	F
 Cherax destructor	4417558	Australian yabbi	gewone yabby	Ecrevisse de Murray	Animalia	F	T	T		F
