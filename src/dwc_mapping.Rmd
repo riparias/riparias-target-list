@@ -81,6 +81,18 @@ input_data <-
     .data$scientific_name))
 ```
 
+For the same reason, we add the authorship to _Zizania latifolia_  (for more info, see issue [#4718](https://github.com/gbif/portal-feedback/issues/4718) in the Github's GBIF portal feedback repository):
+
+```{r zizania}
+input_data <- 
+  input_data %>%
+  mutate(scientific_name = ifelse(
+    .data$scientific_name == "Zizania latifolia",
+    "Zizania latifolia(Griseb.) Hance ex F.Muell.",
+    .data$scientific_name))
+```
+
+
 ## Tidy data
 
 We reshape the vernacular names columns by creating two columns: `vernacular_name` and `language`:
