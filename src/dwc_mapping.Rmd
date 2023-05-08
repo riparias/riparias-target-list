@@ -88,7 +88,7 @@ input_data <-
   input_data %>%
   mutate(scientific_name = ifelse(
     .data$scientific_name == "Zizania latifolia",
-    "Zizania latifolia(Griseb.) Hance ex F.Muell.",
+    "Zizania latifolia (Griseb.) Hance ex F.Muell.",
     .data$scientific_name))
 ```
 
@@ -256,7 +256,8 @@ Map values by recoding to the [GBIF rank vocabulary](http://rs.gbif.org/vocabula
 taxon %<>% mutate(dwc_taxonRank = case_when(
   str_detect(dwc_scientificName, "^[A-Z][a-z]+ [a-z]+$") ~ "species",
   # More specific mappings can be added here
-  str_detect(dwc_scientificName, "Hydrocotyle ranunculoides L.fil.") ~ "species"
+  str_detect(dwc_scientificName, "Hydrocotyle ranunculoides L.fil.") ~ "species",
+  str_detect(dwc_scientificName, "Zizania latifolia (Griseb.) Hance ex F.Muell.") ~ "species"
   )
 )
 ```
