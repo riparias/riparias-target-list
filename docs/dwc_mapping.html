@@ -590,19 +590,18 @@ vocabulary</a>:</p>
   str_detect(dwc_scientificName, &quot;^[A-Z][a-z]+ [a-z]+$&quot;) ~ &quot;species&quot;,
   # More specific mappings can be added here
   str_detect(dwc_scientificName, &quot;Hydrocotyle ranunculoides L.fil.&quot;) ~ &quot;species&quot;,
-  str_detect(dwc_scientificName, &quot;Zizania latifolia (Griseb.) Hance ex F.Muell.&quot;) ~ &quot;species&quot;
-  )
+  str_detect(dwc_scientificName, &quot;Zizania latifolia \\(Griseb.\\) Hance ex F.Muell.&quot;) ~ &quot;species&quot;)
 )</code></pre>
-<pre><code>## mutate: new variable &#39;dwc_taxonRank&#39; (character) with 2 unique values and 3% NA</code></pre>
+<pre><code>## mutate: new variable &#39;dwc_taxonRank&#39; (character) with one unique value and 0% NA</code></pre>
 <p>Show unmapped values:</p>
 <pre class="r"><code>taxon %&gt;%
   filter(is.na(dwc_taxonRank)) %&gt;%
   select(dwc_scientificName)</code></pre>
-<pre><code>## filter: removed 29 rows (97%), one row remaining</code></pre>
+<pre><code>## filter: removed all rows (100%)</code></pre>
 <pre><code>## select: dropped 20 variables (scientific_name, gbif_key, kingdom, is_project_species, is_alert_species, …)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["dwc_scientificName"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"Zizania latifolia (Griseb.) Hance ex F.Muell."}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["dwc_scientificName"],"name":[1],"type":["chr"],"align":["left"]}],"data":[],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>

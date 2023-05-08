@@ -257,8 +257,7 @@ taxon %<>% mutate(dwc_taxonRank = case_when(
   str_detect(dwc_scientificName, "^[A-Z][a-z]+ [a-z]+$") ~ "species",
   # More specific mappings can be added here
   str_detect(dwc_scientificName, "Hydrocotyle ranunculoides L.fil.") ~ "species",
-  str_detect(dwc_scientificName, "Zizania latifolia (Griseb.) Hance ex F.Muell.") ~ "species"
-  )
+  str_detect(dwc_scientificName, "Zizania latifolia \\(Griseb.\\) Hance ex F.Muell.") ~ "species")
 )
 ```
 
